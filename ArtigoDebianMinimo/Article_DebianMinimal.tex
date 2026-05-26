@@ -842,8 +842,7 @@ Para fazer com que o servidor do picom inicialize automaticamente basta colocar 
 exec --no-startup-id picom --config ~/.config/picom/picom.conf & 
 \end{lstlisting}
 
-% ==============================================================================================
-\section{Interfaces Gráficas GTK e Qt}
+\vspace{\baselineskip}
 
 \begin{lstlisting}
 * O que são runtimes ? 
@@ -905,11 +904,89 @@ Se o seu computador tiver várias saídas de áudio ainda será necessário conf
 % ==============================================================================================
 \section{Outros}
 
-% 1. Configuração de Background do i3 
-% 2. Instalação do Brave in Linux 
-% 3. 
+\hspace{\baselineskip}
 
+Verdade seja dita, como os usuários linux precisam eventualmente lidar com arquivos de configurações e scripts, os usuários linux estão mais próximos de aprender programação que os usuários de outros sistemas. Uma das linguagens que o usuário linux pode aprender imediatamente é a linguagem de scripts do sistema \texttt{bash} (arquivos com extensão \texttt{.sh}). Todos os comandos de terminal são comandos da linguagem de script \texttt{bash}, a diferença é que dentro do terminal o usuário geralmente não está executando nenhuma lógica elaborada (apenas comandos sequenciais). \\
 
+\begin{lstlisting}
+* O que é programar ? 
+* O que são estruturas de controle ?
+** O que são estruturas condicionais ?
+** O que são laços de repetição ?
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Programar está conceitualmente relacionado a automatizar para realizar uma tarefa, e automatizar pode ser decomposto em mais três conceitos: procura, decisão e execução. Os comandos feitos no terminal podem ser vistos como execuções de tarefas em que a procura e a tomada de decisão são feitas pelo usuário.\\
+
+Para tomar decisões você precisa de uma sintaxe para checar condições e para fazer procuras você precisa de uma sintaxe que permita repetir processos de checagem e execução. Por isso as estruturas de controle condicionais e de repetição são fundamentais para a lógica de programação, sem elas não é possível automatizar tarefas. \\
+
+Como este tutorial foi feito na era das inteligências artificiais \texttt{LLM}, não vamos entrar nos detalhes da sintaxe, mas sim descrever a lógica de uma automação para que uma \texttt{LLM} crie um script que implemente tal lógica. Vamos utilizar uma sintaxe própria que permita criar prompts facilmente: \\
+
+\begin{lstlisting}
+# Sintaxe de Lógica de Programação:
+# 1. A := Descrição Informal do Comando // Definição do Comando A com um símbolo ou palavra
+# 2. A | B // comando B é feito após o comando A sequencialmente
+# 3. A || B // comando B pertence a estrutura de A 
+# 4. % I // condicional 
+# 5. & R // repetição 
+
+Alimente a LLM com esta sintaxe, para que ela saiba o significado. 
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Vamos agora criar um script para automatizar a mudança de background, primeiro instale o pacote \texttt{sudo apt install feh}. Este aplicativo é apenas um visualizador de imagens que é compatível com o \texttt{i3} para mudar a imagem de fundo. \\
+
+\begin{lstlisting}
+# Prompt { Linux, Debian } :
+# > Crie o script com a seguinte lógica:
+# I := Se o diretório ~/Pictures/Backgrounds/ existir e não estiver vazio.
+# R := Selecione aleatoriamente uma imagem de ~/Pictures/Backgrounds/ como background usando feh.
+# S := Pause por 5 minutos.
+# 1. random_background.sh || & || %I || R 
+# 2. random_background.sh || & || %I | S 
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+A declaração (1) significa que o script tem um loop que caso encontre imagens no diretório então seleciona aleatoriamente uma imagem como background. A declaração (2) significa depois desta execução condicional o script irá pausar por 5 minutos para então repetir este processo indefinidamente. \\
+
+Esta linguagem de prompt é uma linguagem semiformal que pode ser utilizada para o design de scripts de automação com auxílio de inteligências artificiais. Porém nem todas as inteligências artificiais são inteligentes o suficiente para entender, certifique-se de que o script gerado faça algum sentido e verifique como prova real o que o script faz com outra inteligência artificial ou outra conversa.\\
+
+Crie o arquivo com o comando \texttt{touch random\_background.sh}, copie e cole o resultado do prompt no arquivo usando algum editor de texto (como o geany) e ative com o comando \texttt{bash random\_background.sh \&}. Certifique-se também de que o script consiga lidar com possíveis erros antes de tentar inicializar o script de maneira automática (que pode ser feito através do arquivo de configuração i3 ou da pasta \texttt{.config/autostart/}). \\
+
+\begin{lstlisting}
+# Perguntas de Verificação do Script
+# ... alimente a I.A. com o script e faça estas perguntas 
+# 1. O que acontece se o diretório Backgrounds for apagado, movido ou renomeado?
+# 2. O que acontece se novas imagens forem adicionadas?
+# 3. O que acontece se houver deleção ou renomeação de imagens?
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Programar não é ter uma ideia esperar um script dar certo de primeira, é necessário ter responsabilidade pelo resultado final, é necessário checar os casos onde o script pode dar errado e refinar até esgotar as possibilidades de erro. Como esse não é um tutorial de programação, faça esse trabalho com supervisão de inteligências artificiais e sempre faça a prova real do script gerado. \\
+
+Caso tenha dificuldade, o script deve ter mais ou menos a forma abaixo:\\
+
+\begin{lstlisting}
+#!/bin/bash
+# random_background.sh
+# Seleciona backgrounds aleatórios continuamente.
+BACKGROUND_DIRECTORY="$HOME/Pictures/Backgrounds"
+while true; do
+    # I := Se o diretório existir e não estiver vazio
+    if [ -d "$BACKGROUND_DIRECTORY" ] && \
+       [ -n "$(find "$BACKGROUND_DIRECTORY" -type f 2>/dev/null)" ]; then
+        # R := Seleciona aleatoriamente uma imagem como background
+        RANDOM_BACKGROUND="$(find "$BACKGROUND_DIRECTORY" -type f | shuf -n 1)"
+        feh --bg-fill "$RANDOM_BACKGROUND"
+    fi
+    # S := Pause por 5 minutos
+    sleep 300
+done
+\end{lstlisting}
 
 
 % ==============================================================================================
