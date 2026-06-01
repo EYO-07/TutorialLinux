@@ -63,6 +63,14 @@ Tutorial de instalação customizada de linux para uso doméstico (\textit{Deskt
 \tableofcontents 
 \section{Introdução} 
 
+\hspace{\baselineskip}
+
+O objetivo deste texto é guiar o leitor durante a instalação da distribuição \textbf{Debian} a partir de uma instalação mínima. Caso o leitor não tenha interesse em uma instalação customizada, já existem várias distribuições disponíveis, inclusive a distribuição do próprio Debian, com ambientes desktop pré-instalados. \\
+
+Quais as vantagens de uma instalação mínima? Ao instalar uma versão mínima você terá controle total dos aplicativos instalados. Essa abordagem pode evitar desperdício de espaço em disco, o sistema terá menor uso de recursos de hardware por processos em segundo plano desnecessários e o usuário irá ganhar mais experiência sobre o funcionamento do sistema linux. Porém nenhum destes argumentos serão mais convincentes do que a essência da filosofia \textbf{DIY} (\textit{do it yourself}, faça você mesmo). A sensação de construir é uma finalidade em si. \\
+
+Para usuários mais avançados o \textbf{Arch-Linux} é uma opção interessante, porém o Arch-Linux ainda é considerado uma distribuição instável, o que pode levar a problemas para usuários menos experientes. Para usuários intermediários, que buscam maior controle dos componentes instalados do sistema operacional de uma distribuição mais tradicional, a instalação a partir do Debian pode ser mais interessante. \\
+
 \begin{lstlisting}
 * O que é Linux ?
 ** O que é um Sistema Operacional ? 
@@ -73,10 +81,6 @@ Tutorial de instalação customizada de linux para uso doméstico (\textit{Deskt
 \end{lstlisting}
 
 \vspace{\baselineskip}
-
-O objetivo deste texto é guiar o leitor durante a instalação da distribuição \textbf{Debian} a partir de uma instalação mínima. Caso o leitor não tenha interesse em uma instalação customizada, já existem várias distribuições disponíveis, inclusive a distribuição do próprio Debian, com ambientes desktop pré-instalados. \\
-
-Para usuários mais avançados o \textbf{Arch-Linux} é uma opção interessante, porém o Arch-Linux ainda é considerado uma distribuição instável, o que pode levar a problemas para usuários menos experientes. Para usuários intermediários, que buscam maior controle dos componentes instalados do sistema operacional de uma distribuição mais tradicional, a instalação a partir do Debian pode ser mais interessante. \\
 
 Sistemas operacionais são componentes de software que criam uma interface entre o usuário e os aplicativos que podem ser executados no computador. Um sistema operacional é composto de dois componentes principais: O \textbf{Kernel}, que gerencia os recursos de hardware (memória, processamento, armazenamento); E o \textbf{Ambiente Desktop}, que é composto de diferentes ferramentas e aplicativos voltados para facilitar a interação com o usuário.\\
 
@@ -107,6 +111,16 @@ Neste tutorial será mostrado o passo-a-passo para a instalação do kernel da d
 Servidores gráficos são programas que fazem a comunicação entre aplicativos e os componentes de tela, teclado e mouse, \textbf{X11} foi escolhido por ser um servidor gráfico mais tradicional, portanto com maior suporte para os programas. Existem outros servidores gráficos mais modernos, por exemplo, o Wayland, que além de servidor gráfico é também um compositor de janelas. \\
 
 Gerenciador de janelas é um programa que organizam os diferentes aplicativos em janelas, controlando seu formato, aparência e disposição. Um compositor combina os gráficos das janelas, permitindo efeitos visuais de transparência, animações e transições. \\
+
+\begin{lstlisting}
+Tipos de Gerenciador de Janelas:
+1. Tilling (Blocos) // Organiza as janelas em blocos, orientado a teclado.
+2. Floating (Janelas Flutuantes) // Organiza as janelas de maneira livre, orientado a mouse. 
+... windows, mac e a maior parte das distros prontas.
+3. Composto // combinação dos dois tipos de gerenciador.
+\end{lstlisting}
+
+\vspace{\baselineskip}
 
 O windows tem um gerenciador de janelas do tipo janela flutuante, em que o usuário pode alterar a largura, altura e a posição com o mouse. O gerenciador de janelas \textbf{i3} é um pouco diferente, pois é um gerenciador orientado a input de teclado, as janelas são organizadas em blocos (\texttt{tiles}) e a disposição das janelas é alterada através de atalhos do teclado.\\
 
@@ -140,11 +154,11 @@ A segunda recomendação é garantir a reversibilidade. Faça backups de arquivo
 
 \vspace{\baselineskip}
 
-Se você estiver migrando do windows será também necessário verificar o status do bitlocker, do \texttt{Secure Boot} (TPM) e da inicialização rápida. Porém estes detalhes serão importantes quando você já estiver decidido a instalar o sistema. Caso o sistema bitlocker de criptografia esteja ativado no seu dispositivo, obtenha e anote em um papel ou caderno a chave bitlocker do seu dispositivo via sua conta microsoft, isso é muito importante, sem a chave bitlocker não será possível sair do modo de recuperação do bitlocker e você irá perder os dados gravados no dispositivo. \\
+Se você estiver migrando do windows será também necessário verificar o status do \textbf{bitlocker}, do \texttt{Secure Boot} (TPM) e da inicialização rápida. Porém estes detalhes serão importantes quando você já estiver decidido a instalar o sistema. Caso o sistema bitlocker de criptografia esteja ativado no seu dispositivo, obtenha e anote em um papel ou caderno a chave bitlocker do seu dispositivo via sua conta microsoft, isso é muito importante, sem a chave bitlocker não será possível sair do modo de recuperação do bitlocker e você irá perder os dados gravados no dispositivo. \\
 
-Assegure-se de ter conexão com a internet, se possível conexão via cabo de rede (ethernet). Sem conexão com internet não será possível instalar os componentes customizados através do gerenciador de pacotes. Para usuários mais experientes é possível instalar pacotes Debian previamente baixados, caso não tenha conexão com a internet, prepare seus arquivos previamente em alguma mídia ou partição acessível. \\
+Na instalação da máquina virtual, a conexão com a internet não será um problema, pois a máquina virtual acessa a internet através do sistema hospedeiro. No caso da instalação definitiva, você irá encontrar problemas se estiver utilizando hardware antigo (problemas com o adaptador wifi são bem comuns), porém a instalação do sistema mínimo não requer conexão com a internet. Se o seu computador tiver conexão via \textbf{cabo ethernet} , use a instalação via internet, se o seu computador precisar de conexão wifi, este tutorial irá guiar o leitor para uma instalação sem internet, pois a instalação de pacotes adicionais poderá ser feita inicialmente direcionando o gerenciador para os arquivos de imagem de sistema \texttt{.iso} dos instaladores.\\ 
 
-Este tutorial faz uso de dialéticas socráticas (estrutura de perguntas) para resumir e estruturar seu conteúdo. Não são exercícios ou perguntas a serem respondidas formalmente, nem são perguntas que necessariamente serão respondidas neste texto. Dialéticas socráticas são perguntas para verificação rápida dos conceitos. Não execute operações descritas neste texto enquanto houver conceitos obscuros. Caso haja dúvidas não respondidas neste texto sinta-se à vontade para fazer perguntas para inteligências artificiais.
+As perguntas do texto não são exercícios para serem respondidos formalmente, nem são perguntas que necessariamente serão respondidas aqui. São perguntas para verificação rápida dos conceitos. Não execute operações descritas neste texto enquanto houver conceitos obscuros. Lembre-se que instalação de sistemas operacionais pode levar a perda de dados e possivelmente a perda de acesso aos sistemas operacionais instalados.
 
 %\newpage
 
@@ -217,6 +231,35 @@ A configuração dos recursos de hardware geralmente é feito durante a criaçã
 Caso queira remover uma máquina virtual, você pode usar a interface do virtual box para remover a máquina e os seus arquivos ou remover os arquivos diretamente deletando o diretório onde a máquina virtual foi instalada.
 
 % ==============================================================================================
+\section{Mídia de Instalação} 
+
+\begin{lstlisting}
+* Como criar uma mídia de instalação para netinst do Debian ?
+** O que é uma mídia bootável ?
+*** Como inicializar uma mídia bootável ?
+**** Como configurar a ordem de prioridade de inicialização de unidades de armazenamento ? 
+* Ferramentas de criação de mídia bootável
+** Como funciona a ferramenta rufus e balena etcher ? 
+** Como funciona a ferramenta ventoy ?
+** Quais outras ferramentas são interessantes para ter em uma mídia bootável ?
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Esta seção será útil para a instalação definitiva em disco, se ainda estiver testando em máquina virtual, pule esta seção. \\
+
+A melhor ferramenta para criação de mídias de instalação é o \texttt{ventoy}, que permite copiar os arquivos \texttt{.iso} diretamente na mídia usb, sem precisar de reformatação. As outras ferramentas como rufus e balena etcher requerem formatação, apagando os arquivos anteriores da mídia usb.\\
+
+Você pode encontrar a ferramenta ventoy em \texttt{github.com/ventoy/Ventoy}, compile ou baixe binários já pré-compilados e execute as versões de interface gráfica correspondente a arquitetura de seu computador e sistema operacional atual. Os binários podem ser baixados diretamente em \texttt{www.ventoy.net}, extraia e busque pelos executáveis como \texttt{Ventoy.GUI\_X}. \\
+
+Na interface gráfica do ventoy selecione sua mídia usb (faça backup dos arquivos anteriores, caso necessário) e prossiga com a instalação do ventoy. Quando terminar a instalação do ventoy a sua mídia usb já estará pronta para uso, basta você copiar as imagens \texttt{.iso} de instalação diretamente na mídia usb e configurar o boot do windows para inicializar mídias usb.\\
+
+Poderá ser necessário mudar a ordem de prioridade de boot na bios, para isso basta pressionar o botão de inicialização da BIOS/UEFI e ir na seção de boot para mudar a ordem de inicialização. Deverá aparecer uma lista com os discos rídigos conectados e as mídias removíveis. Alguns menus da BIOS/UEFI permitem você inicializar a partir da bios, neste caso basta selecionar a mídia removível. Caso sua BIOS/UEFI não permita a seleção diretamente, você deve colocar a mídia removível com prioridade superior, salvar as alterações e sair do menu da BIOS/UEFI.\\
+
+Configurado a BIOS/UEFI para o boot de mídia removível, ao reinicializar você irá para o menu do ventoy, no menu basta selecionar a versão de imagem linux que você quiser instalar. É interessante ter também algumas ferramentas, como o \texttt{gparted live iso}, que funciona como um sistema de mídia bootável com o aplicativo \texttt{gparted} para gerenciar partições. Criar partições via o instalador do netinst é mais arriscado, por isso recomendo que crie as partições usando o gparted antes de começar a instalação.
+
+% ==============================================================================================
+
 \section{Partições}  
 
 %\vspace{\baselineskip}
@@ -231,8 +274,13 @@ Caso queira remover uma máquina virtual, você pode usar a interface do virtual
 ** Quais partições são interessantes para configurar durante a instalação linux ? 
 * Como criar uma nova partição ?
 ** O que são partições primárias e o que são partições lógicas ? 
+*** Relação entre Partição Primária e formato MBR ?
+**** Diferença entre sistema MBR e GPT ? 
+*** O que é uma partição estendida ? 
+**** Por que para discos MBR é interessante colocar o espaço não alocado adjacente a uma partição estendida ? 
+*** Quais os cuidados ao criar partições no sistema legado MBR ?
 ** Como criar um espaço não-alocado ? 
-** Como criar uma partição a partir de um espaço não-alocado ?
+** Como criar uma partição a partir de um espaço não-alocado ? 
 ** Quais os tipos de formatos de partição ? 
 \end{lstlisting}
 
@@ -254,6 +302,14 @@ Formatos de Partições:
 \vspace{\baselineskip}
 
 A instalação de sistemas operacionais requer algum conhecimento sobre partições. O gerenciamento de partições pode ser feito com a ferramenta windows (Gerenciador de Disco/Disk Management), nesta interface você pode criar espaços não-alocados que posteriormente podem ser usados pelo instalador linux para definir partições com formatos adequados para linux. Tome cuidado ao modificar, formatar ou criar novas partições, estas operações podem levar a perda de dados em caso de erro e a inutilização do sistema operacional. Assegure-se de ter suficiente espaço em disco para criar novas partições.\\
+
+Caso esteja em windows, use o gerenciador de disco somente para criar espaços não-alocados, de preferência a partir de partições estendidas (caso esteja utilizando sistema MBR). Use o \texttt{gparted live} para efetivamente criar as partições com o formato adequado. \\
+
+Um dos erros comuns durante a criação de partições em sistema MBR é acabar ficando com espaço não-alocado inutilizável, isso se dá por conta da limitação do número de partições primárias e partições estendidas. O sistema MBR dá suporte a no máximo 4 partições primárias, portanto se você esgotar esse número você não irá poder mais criar novas partições. A solução para isso nos sistemas MBR é a criação de uma partição estendida. \\ 
+
+A partição estendida é uma partição primária especial que permite criar partições lógicas, é um container de partições que permite o disco rídigo exceder o número máximo de partições primárias. Porém, o sistema MBR somente dá suporte a uma partição estendida, então se você estiver com três partições primárias, uma estendida (que também conta como primária) e um espaço não-alocado não adjacente a partição estendida, esse espaço não-alocado é inutilizável. \\
+
+Se o espaço não-alocado não estiver contido, porém adjacente a partição estendida, você pode utilizar o \textbf{gparted} para incluir o espaço não-alocado dentro da partição estendida. Lembre-se de fazer isso antes de usar o espaço para instalação, pois essa operação de estensão da partição estendida somente pode ser feita com espaços não-alocados adjacentes. \\ 
 
 \begin{lstlisting} 
 Partições Linux
