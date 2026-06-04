@@ -207,7 +207,7 @@ Após tomar os devidos cuidados com o bitlocker para ativar a virtualização, r
 
 A virtualização é necessária para utilizar máquinas virtuais, porém ela vem geralmente desativada por uma questão de segurança. Desabilitar este recurso pode impedir que softwares maliciosos usem o recurso de virtualização para usar o processamento do computador de maneira remota. \\
 
-O software recomendado neste tutorial para criação de máquinas virtuais será o virtualbox, você pode obter seu instalador através do site oficial (\texttt{https://www.virtualbox.org/}). Baixe e instale a versão do virtual box para seu computador e prossiga com o tutorial. \\
+O software recomendado neste tutorial para criação de máquinas virtuais será o virtualbox, você pode obter seu instalador através do site oficial (\texttt{www.virtualbox.org}). Baixe e instale a versão do virtual box para seu computador e prossiga com o tutorial. \\
 
 Para usar o virtual box você deve ter suficiente espaço de armazenamento no seu disco rídigo, cada máquina virtual linux geralmente ocupa 25 \texttt{GB} de armazenamento, assegure que tenha o dobro ou triplo disso de espaço livre antes de tentar operar máquinas virtuais. \\
 
@@ -309,7 +309,7 @@ Um dos erros comuns durante a criação de partições em sistema MBR é acabar 
 
 A partição estendida é uma partição primária especial que permite criar partições lógicas, é um container de partições que permite o disco rídigo exceder o número máximo de partições primárias. Porém, o sistema MBR somente dá suporte a uma partição estendida, então se você estiver com três partições primárias, uma estendida (que também conta como primária) e um espaço não-alocado não adjacente a partição estendida, esse espaço não-alocado é inutilizável. \\
 
-Se o espaço não-alocado não estiver contido, porém adjacente a partição estendida, você pode utilizar o \textbf{gparted} para incluir o espaço não-alocado dentro da partição estendida. Lembre-se de fazer isso antes de usar o espaço para instalação, pois essa operação de estensão da partição estendida somente pode ser feita com espaços não-alocados adjacentes. \\ 
+Se o espaço não-alocado não estiver contido, porém adjacente a partição estendida, você pode utilizar o \textbf{gparted} para incluir o espaço não-alocado dentro da partição estendida. Lembre-se de fazer isso antes de usar o espaço para instalação, pois essa operação de extensão da partição estendida somente pode ser feita com espaços não-alocados adjacentes. \\ 
 
 \begin{lstlisting} 
 Partições Linux
@@ -350,34 +350,63 @@ Muitos computadores com sistema UEFI dão suporte ao modo de compatibilidade CSM
 
 \hspace{\baselineskip}
 
-As distribuições linux podem ser baixadas nos repositórios oficiais sob o formato \texttt{iso}, no caso do debian, no site \texttt{https://www.debian.org/} você pode baixar na seção de downloads a versão \texttt{netinst} que é uma versão compacta para ser usada com conexão de rede. \\
+As distribuições linux podem ser baixadas nos repositórios oficiais sob o formato \texttt{iso}, no caso do debian, no site \texttt{www.debian.org} você pode baixar na seção de downloads a versão \texttt{netinst} ($\sim$ 300 \texttt{MB}) que é uma versão compacta para ser usada com conexão de rede.\\
+
+Para a instalação em disco, caso você esteja em um notebook com hardware \texttt{wifi} antigo e não tenha acesso à internet por cado de rede ethernet, baixe também a versão completa (DVD, $\sim$ 4\texttt{GB}). Se você estiver usando uma mídia removível com \textbf{ventoy} instalado, você pode copiar a imagem da versão completa diretamente na mídia de instalação junto com a imagem do \texttt{netinst}, caso contrário coloque em uma partição linux (\texttt{ext4}) em uma partição diferente da instalação. Este tutorial irá mostra como montar uma \texttt{.iso} para ser utilizado como fonte offline de instalação do gerenciador de pacotes do \textbf{Debian}. \\
 
 Ao configurar a máquina virtual para usar o sistema operacional linux baixado, entre nas configurações da máquina virtual e selecione a \texttt{iso} baixada. Certifique-se de que a máquina esteja configurada para instalação manual, caso contrário ela vai pular as etapas de instalação. \\
 
 \begin{lstlisting}
 Etapas de Instalação:
-1. Seleção de Interface de Instalação
-2. Seleção de Linguagem, Localização, Teclado
-3. Configuração de Rede 
-4. Seleção de Endereços de Repositórios
-5. Registro de Hostname : Nome do Computador 
-6. Registro de Domínio : Desnecessário para uso doméstico. 
-7. Criação da senha para o root 
-8. Criação do login e senha para o primeiro usuário 
-9. Particionamento 
-10. Seleção de Softwares Iniciais 
-11. Instalação do Bootloader no MBR/ESP 
+1. Seleção de Interface de Instalação (Gráfico ou Terminal)
+... não faz muita diferença, porém a interface gráfica pode evitar erros.
+2. Seleção de Linguagem de Instalação
+3. Seleção de Linguagem de Sistema, Localização e Teclado
+... o teclado e a localização podem ser do seu país atual.
+4. Configuração de Rede 
+... recomendo não se conectar a rede durante a instalação. 
+... este tutorial irá mostrar como usar um arquivo .iso como fonte do gerenciador de aplicativos.
+... a instalação via rede será feita posteriormente.
+5. Seleção de Proxy : Desnecessário para uso doméstico. 
+... a não ser que você tenha um servidor proxy, mas isso não será abordado aqui.
+6. Seleção de Endereços de Repositórios
+... este tutorial irá mostrar como configurar os endereços manualmente.
+... você pode pular esta etapa.
+7. Registro de Hostname : Nome do Computador 
+... se lhe faltar criatividade use debianMinimal.
+... você pode mudar o nome após a instalação.
+8. Registro de Domínio : Desnecessário para uso doméstico. 
+9. Criação da senha para o root 
+... anote a senha primeiro em um caderno ou folha de papel
+10. Criação do login e senha para o primeiro usuário 
+... anote a senha primeiro em um caderno ou folha de papel
+... pode ser a mesma senha do root
+11. Configuração de Relógio do Sistema 
+... selecione UTC.
+12. Particionamento 
+... selecione particionamento manual 
+... selecione as partições que você criou previamente
+13. Seleção de Softwares Iniciais 
+... na instalação por interface de terminal ...
+... não aperte enter na seleção de software, ... 
+... aperte espaço para selecionar/deselecionar.
+... selecione apenas os aplicativos essenciais do sistema.
+... caso esteja conectado a internet, deselecione as opções de ambiente gráfico.
+14. Instalação do Bootloader no MBR/ESP 
+... instalar o bootloader irá reinstalar o grub.
+... caso esse seja um sistema secundário e você tenha outro sistema linux instalado ...
+... recomendo não instalar e atualizar o grub pelo outro sistema.
 \end{lstlisting}
 
 \vspace{\baselineskip}
 
-A inicialização da instalação na máquina virtual deve acontecer ao iniciar a máquina virtual, porém para a instalação no disco do computador é necessário ter uma mídia de instalação. Softwares como \texttt{Balena Etcher} ou \texttt{Rufus} podem ser usados para criar mídias de instalação USB, basta abrir o software, apontar para o pen-drive (cuidado para não selecionar a mídia errada, pois essa operação apaga os dados da mídia selecionada) e selecionar a iso \texttt{netinst} do debian. Após isso pode ser preciso inicializar o firmware da UEFI/BIOS para selecionar o boot pela mídia de instalação. Geralmente o menu da UEFI/BIOS permite a inicialização manual, vá para a seção de boot e selecione a mídia de instalação, ou mude a prioridade de inicialização do boot para USB. Saia do menu da BIOS e reinicie se necessário. \\ 
+A inicialização da instalação na máquina virtual deve acontecer ao iniciar a máquina virtual, porém para a instalação no disco do computador é necessário ter uma mídia de instalação. Softwares como \texttt{Balena Etcher} ou \texttt{Rufus} podem ser usados para criar mídias de instalação USB, basta abrir o software, apontar para o pen-drive (cuidado para não selecionar a mídia errada, pois essa operação apaga os dados da mídia selecionada) e selecionar a iso \texttt{netinst} do debian, porém recomendo a instalação pelo aplicativo \texttt{ventoy} como sugerido anteriormente. Após isso pode ser preciso inicializar o firmware da UEFI/BIOS para selecionar o boot pela mídia de instalação. Geralmente o menu da UEFI/BIOS permite a inicialização manual, vá para a seção de boot e selecione a mídia de instalação, ou mude a prioridade de inicialização do boot para USB. Saia do menu da BIOS e reinicie se necessário. \\ 
 
-Ao inicializar a mídia de instalação, o usuário irá ser perguntado sobre a instalação via interface gráfica ou instalação via interface tradicional de terminal. Selecione a instalação via interface de terminal e siga as etapas de instalação. Importante, quando chegar na seleção dos softwares iniciais, para o setup da instalação mínima, tire a seleção apertando espaço (não aperte \texttt{enter} para selecionar ou deselecionar, pois isso irá aceitar o que tiver selecionado) das interfaces gráficas e apenas deixe os softwares essenciais. \\
+Ao inicializar a mídia de instalação, o usuário irá ser perguntado sobre a instalação via interface gráfica ou instalação via interface tradicional de terminal. Não faz muita diferença, porém a interface gráfica pode evitar erros. Importante, caso esteja na instalação por interface de terminal, quando chegar na seleção dos softwares iniciais, para o setup da instalação mínima, tire a seleção apertando espaço (não aperte \texttt{enter} para selecionar ou deselecionar, pois isso irá aceitar o que tiver selecionado) das interfaces gráficas e apenas deixe os softwares essenciais. \\
 
 Tome muito cuidado na etapa de particionamento durante a instalação no disco do computador, escolha particionamento manual, não avance no particionamento se tiver dúvidas, tenha certeza de que está instalando na partição correta. \\
 
-As unidades de disco são nomeadas em ordem de detecção (\texttt{sda,sdb,sdc ...}), os nomes podem mudar dependendo da ordem de inicialização configurada na BIOS/UEFI. Caso você mude a ordem de inicialização você irá mudar os nomes e isso pode levar a instalação em partições incorretas. Confira o tamanho da partição e não somente o nome. Se possível, crie espaços não-alocados usando o gerenciador de partições do windows ou softwares do linux como o \texttt{gparted}, após isso utilize o espaço não-alocado para criar as partições do sistema operacional com a mídia de instalação.\\
+As unidades de disco são nomeadas em ordem de detecção (\texttt{sda,sdb,sdc ...}), os nomes podem mudar dependendo da ordem de inicialização configurada na BIOS/UEFI. Caso você mude a ordem de inicialização você irá mudar os nomes e isso pode levar a instalação em partições incorretas. Confira o tamanho da partição e não somente o nome. Se estiver em windows, crie espaços não-alocados usando o gerenciador de partições do windows e depois configure as partições com o \texttt{gparted live}. Geralmente é suficiente você ter $\sim$ 50\texttt{GB} de \texttt{ext4} que será usado para o \texttt{root} e se possível 4-8 \texttt{GB} de partição swap (\texttt{linux-swap}). A partição \texttt{swap} não é necessária, a não ser que você queira ativar o modo de hibernação, o espaço deve ser suficiente para armazenar a memória \texttt{ram} no momento que você ativar o modo de hibernação. \\
 
 \begin{lstlisting}
 * O que são terminais virtuais tty ?
@@ -429,20 +458,105 @@ O símbolo $\sim$ é um atalho para o endereço \texttt{/home/username} com \tex
 # 23. ping <ENDEREÇO> ; Testa conexão com endereço. 
 \end{lstlisting}
 
-\vspace{\baselineskip}
+% ==============================================================================================
+\section{Configuração de Rede}
 
-Supondo que sua instalação debian mínima foi bem sucedida, quando você inicializar o computador você estará no terminal virtual. É a partir de agora que a sua instalação customizada começa, e para isso a primeira coisa que você terá que fazer é logar com o usuário root (usuário root e senha root que foi criada na instalação) e executar o comando \texttt{apt install sudo}. \\
+\hspace{\baselineskip}
 
-Caso tenha algum problema com o teclado você pode executar alguns dos comandos abaixo: \\
+Se sua instalação debian mínima for bem sucedida, quando você inicializar o computador você estará no terminal virtual. É a partir de agora que a sua instalação customizada começa, e para isso a primeira coisa que você terá que fazer é logar com o usuário root (usuário root e senha root que foi criada na instalação). Digite primeiro \texttt{root} e depois a senha correspondente.\\
+
+Supondo que você não conectou a internet, então os \texttt{mirrors} (links alternativos) dos repositórios oficiais não foram configurados. Caso tenha feita a instalação com conexão com a internet, pule esta seção.\\
+
+A maior parte dos programas linux tradicionais fazem uso de arquivos de configuração, estes arquivos geralmente estão em duas pastas, a primeira pasta para os arquivos padrão \texttt{/etc/...} e arquivos que afetam todos os usuários e a segunda pasta \texttt{$\sim$/.config} para arquivos de configuração específicos do usuário.\\ 
+
+O arquivo de configuração que precisamos modificar é o arquivo \texttt{/etc/apt/sources.list}, você pode visualizar seu conteúdo rapidamente usando o comando: 
+
+$$ \texttt{cat /etc/apt/sources.list} $$
+
+Linhas começando \# são comentários e geralmente são ignorados pelo sistema. As outras linhas definem os endereços que o gerenciador de pacotes \texttt{apt} irá se conectar: \\
 
 \begin{lstlisting}
-# Inventário [ Configurações do Teclado ] { Linux, Debian }
-# 1. sudo dpkg-reconfigure keyboard-configuration ; Reconfigura manualmente o teclado.
-# 2. setxkbmap -query ; Mostra as configurações do teclado.
-# 3. setxkbmap br ; Muda o layout do teclado para português brasileiro.
+# uri : endereço de repositório
+# distribuição : nome da distribuição que você está usando (bookworm, trixie, ...)
+# componenteX : subdivisões do repositório 
+deb [opções] uri distribuição componente1 componente2 ...
+deb-src [opções] uri distribuição componente1 componente2 ...   
 \end{lstlisting}
 
 \vspace{\baselineskip}
+
+Tome cuidado ao modificar arquivos, você está usando o usuário \texttt{root} que tem permissões especiais. Erros de sintaxe em arquivos importantes podem tornar o sistema inutilizável (não é o caso do arquivo \texttt{sources.list}). \\
+
+Supondo também que você tenha baixado a \texttt{.iso} do sistema Debian completo (DVD, $\sim$4\texttt{GB}) e colocado em alguma partição comum de armazenamento (pode ser uma outra mídia removível ou mesmo a própria mídia de instalação, caso tenha usado o \texttt{ventoy}), vamos prosseguir com a sintaxe para utilizar esta \texttt{.iso} como fonte para o gerenciador de aplicativos. \\
+
+\begin{lstlisting}
+# Vamos assumir que a versão do debian seja trixie 
+# O ponto de montagem pode ser em qualquer endereço válido
+# ... geralmente se coloca na pasta /mnt/ 
+# ... vamos considerar que tenha sido em /mnt/debian-iso/
+deb [trusted=yes] file:/mnt/debian-iso trixie main non-free-firmware contrib non-free 
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Use o comando \texttt{nano /etc/apt/sources.list} para editar o arquivo e coloque a linha como escrito acima (note que é apenas uma linha, desconsidere a quebra de linha do texto). No editor \texttt{nano} você precisa acionar o atalho \texttt{ctrl+o} para salvar, acione e pressione \texttt{enter}. Feche o editor com \texttt{ctrl+x}.\\
+
+\begin{lstlisting}
+# Inventário [ Editor de Texto Nano ] { Linux, Debian }
+# -- Linhas de Comando 
+# 1. nano <ARQUIVO> ; Abre ou cria um arquivo de texto para edição no editor nano.
+# 2. sudo nano <ARQUIVO> ; Abre um arquivo com permissões administrativas.
+# -- Atalhos Principais Dentro do Nano --
+# 1. CTRL + O ; Salva o arquivo atual.
+# 2. CTRL + X ; Fecha o editor nano.
+# 3. CTRL + K ; Recorta linha atual.
+# 4. CTRL + U ; Cola conteúdo recortado.
+# 5. CTRL + W ; Pesquisa texto no arquivo.
+# 6. CTRL + \ ; Pesquisa e substituição de texto.
+# 7. CTRL + G ; Exibe ajuda do nano.
+# 8. ALT + U ; Desfaz última alteração.
+# 9. ALT + E ; Refaz alteração desfeita.
+# 10. ALT + A ; Inicia/finaliza seleção de texto.
+# 11. ALT + 6 ; Copia linha ou seleção.
+# 12. ALT + / ; Vai para o fim do arquivo.
+# 13. ALT + \ ; Vai para o início do arquivo.
+# 14. CTRL + Y ; Move uma página para cima.
+# 15. CTRL + V ; Move uma página para baixo.
+# 16. CTRL + L ; Redesenha a tela.
+# 17. ALT + ] ; Vai para próximo bloco/parêntese.
+# 18. ALT + [ ; Vai para bloco/parêntese anterior.
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Apenas modificar este arquivo não basta, agora você precisa montar a imagem \texttt{.iso} no endereço correspondente. Como os comandos são mais complicados recomendo criar um script temporário usando o comando \texttt{touch mounting\_debian\_iso.sh}.\\
+
+\begin{lstlisting}
+# mounting_debian_iso.sh
+mkdir -p /mnt/linux-data
+mount /dev/UNIDADE /mnt/linux-data
+mkdir -p /mnt/debian-iso
+mount -o loop /mnt/linux-data/CAMINHO_ISO /mnt/debian-iso
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+O nome \texttt{UNIDADE} é a unidade onde foi colocado a \texttt{.iso} completa. Geralmente tem o formato \texttt{sdXY} com \texttt{X} representando o disco e \texttt{Y} representando a partição do disco. Para saber exatamente qual o nome da partição onde foi colocado os comandos abaixo podem ser úteis.\\
+
+\begin{lstlisting}
+lsblk
+fdisk -l 
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+As primeiras duas linhas do arquivo \texttt{mounting\_debian\_iso.sh} criado montam a \texttt{UNIDADE} no endereço \texttt{/mnt/linux-data}, o que em linguagem linux significa que você está estabelecendo um ponto de acesso para o sistema de arquivos. Depois de executado estas duas linhas a sua unidade se torna navegável começando pelo endereço \texttt{/mnt/linux-data}. Se tiver dúvidas você pode montar a \texttt{UNIDADE} primeiro e usar o comando \texttt{ls /mnt/linux-data} para investigar o seu conteúdo.\\
+
+O nome \texttt{CAMINHO\_ISO} é o caminho até o arquivo correspondente a \texttt{.iso} a partir do início da \texttt{UNIDADE}. As duas linhas finais montam a \texttt{.iso} no endereço \texttt{/mnt/debian-iso}. \\
+
+Finalizado as modificações necessárias do arquivo criado, agora basta executar o comando \texttt{bash mounting\_debian\_iso.sh} para montar a imagem \texttt{.iso}. Feito isso, você já pode utilizar o \texttt{apt} para fazer instalações de alguns aplicativos importantes.\\
+
+Execute o comando \texttt{apt update}, este comando atualiza a lista dos repositórios, dessa forma o programa \texttt{apt} atualiza as modificações feitas nos arquivos de configuração e atualiza sua lista interna de pacotes. Após isso execute o comando o comando \texttt{apt install sudo}. \\
 
 O comando \texttt{sudo} é um comando bem conhecido para elevação de privilégio de um usuário, ele permite que você tenha os mesmos privilégios que o \texttt{root} e possa instalar recursos sem estar logado no usuário \texttt{root}. Por incrível que pareça, \texttt{sudo} não está presente na instalação mínima e precisa ser instalado pelo repositório oficial do debian. \\
 
@@ -466,80 +580,39 @@ Não é recomendado utilizar o usuário \texttt{root} para atividades corriqueir
 
 Com o \texttt{sudo} instalado, adicione o seu usuário normal ao grupo sudo com o comando listado no inventário acima (6), após isso verifique com o comando (7) se seu usuário está no grupo sudo. Sempre que for necessário instalar algum programa ou fazer alguma operação que exija privilégios de administrador, use o prefixo \texttt{sudo} antes do comando para fazer tal operação no terminal usando o seu login padrão. \\
 
-\begin{lstlisting}
-* Como instalar programas em linux ?
-** O que é apt, apt-get, dpkg e .deb em linux ?  
-** Onde é configurado os repositórios do apt ? 
-** Como acessar e editar os repositórios do apt ? 
-*** Onde estão localizados os arquivos com a lista de repositórios ? 
-* Quais as práticas de segurança ao instalar aplicativos em linux ?
-** Quais as práticas de segurança ao instalar aplicativos open-source ?
-** O que são checksums ?
-*** Quais comandos para calcular checksums em linux ? 
-\end{lstlisting}
-
-\vspace{\baselineskip}
-
-Diferentes distribuições usam diferentes gerenciadores de pacotes. No debian linux, tradicionalmente se usa o \texttt{apt-get}, sendo o \texttt{apt} apenas uma interface mais amigável do \texttt{apt-get}. É possivel instalar um pacote usando diretamente um arquivo \texttt{.deb}, porém é mais comum usar o comando \texttt{apt install NOME} com o nome do pacote para que o gerenciador de pacotes busque pelo pacote em uma lista de repositórios confiáveis.\\
-
-É importante saber onde está definido a lista de procura pelos repositórios. Posteriormente será necessário ativar versões do repositório para instalação de drivers proprietários (para placa de vídeo por exemplo). O diretório em que configurações padrão geralmente ficam armazenados é o diretório \texttt{/etc}, para o gerenciador de pacotes \texttt{apt} podemos encontrar na pasta \texttt{/etc/apt} o arquivo \texttt{sources.list} e o diretório \texttt{sources.list.d/} onde alguns aplicativos registram seus próprios repositórios. Você pode visualizar seu conteúdo com o comando \texttt{cat /etc/apt/sources.list}.\\
-
-\begin{lstlisting}
-Práticas de Segurança Linux 
-1. Dê preferência por instalação via repositórios oficiais ; Repósitórios oficiais da sua distribuição linux são regularmente mantidos pela distribuição, verificando assinaturas digitais e mantendo dependências seguras.
-2. Ao utilizar repositórios de terceiros verifique as assinaturas GPG.
-3. Atualize regularmente o sistema para obter correções e atualizações de segurança.
-4. Evite instalação via script .sh ; Usar scripts para instalação é uma má prática. Algumas fontes conhecidas usam scripts deste tipo, porém você deve ler atentamente o script e evitar fontes desconhecidas. 
-5. Sempre tente executar uma tarefa primeiro como usuário normal ; Boa parte das tarefas, incluso algumas instalações, podem ser feitas como usuário normal, use sudo somente se necessário.
-6. Reputação e Auditoria ; Um repositório/aplicativo ser de código-aberto não implica automaticamente em segurança, é necessário que auditorias sejam feitas regularmente e tenha uma comunidade ativa. É muito arriscado usar repositórios pouco conhecidos ou abandonados. 
-7. Compilação a partir da fonte ; Se o aplicativo for de código aberto, é possível optar por binários já pré-compilados. Geralmente os repositórios disponibilizam as checksums para fazer a comparação, porém a compilação a partir da fonte costuma ser mais segura. 
-8. Checksums ; O binário de um aplicativo pode ser comparado com o original usando o recurso checksum. Checksums são algoritmos que retornam um valor numérico a partir de um arquivo binário, a ideia é que para um mesmo aplicativo temos apenas um valor de checksum para um mesmo algoritmo, então é possível verificar se um aplicativo é autentico ou se não foi alterado ou corrompido. 
-\end{lstlisting}
-
-\vspace{\baselineskip}
-
-Um aplicativo de código-aberto não se torna automaticamente seguro, é necessário haver uma comunidade de programadores para fazer auditorias de código de maneira regular. Projetos pequenos ou abandonados podem ser um risco de segurança para o usuário. \\
-
-Muitos aplicativos de código-aberto disponibilizam binários pré-compilados, o que torna mais prático para projetos grandes, pois a compilação a partir da fonte exige algum conhecimento de programação além de consumir tempo e processamento do computador. Para verificar se os binários pré-compilados correspondem ao resultado da compilação as distribuições linux vem equipadas com comandos para calcular checksums. Esses comandos geram um número (hash) a partir do conteúdo do próprio arquivo binário, então um mesmo arquivo binário gera apenas um único número para um mesmo algoritmo. Seria ideal que para um mesmo algoritmo dois binários diferentes gerassem valores diferentes, mas não é sempre isso que acontece, então esse método deve ser interpretado da seguinte forma, binários adulterados tem maiores chances de gerarem valores diferentes dependendo do algoritmo. Quando dois binários geram um mesmo hash dizemos que há colisão. \\
-
-\begin{lstlisting}
-# Inventário [ Checksums ] { Linux, Debian }
-# 1. sha256sum <ARQUIVO> # SHA-256 (256-bit) - Checksum Padrão, com chance de colisão estatisticamente irrelevante. 
-# 2. md5sum <ARQUIVO> # MD5 (128-bit) - Não é mais utilizado para autenticação por ser fácil forjar colisão de hash com ferramentas atuais. Porém pode ser usado para verificar modificações e corrupções durante cópia e transferência de arquivos. 
-# 3. sha1sum <ARQUIVO> # SHA-1 (160-bit) - Não pode mais ser utilizado para autenticação, porém pode ser usado para verificar modificações e corrupções durante cópia e transferência de arquivos.
-# 4. sha384sum <ARQUIVO> # SHA-384 (384-bit) - Mais forte que SHA-256.
-# 5. sha512sum <ARQUIVO> # SHA-512 (512-bit) - Hash maior, mais forte que SHA-256.
-\end{lstlisting}
-
-\vspace{\baselineskip}
-
-Para verificar autenticidade geralmente você irá comparar o sha256sum gerado pelo seu arquivo com o do distribuidor. Para verificar corrupção não intencional de arquivos durante transferência ou cópia você pode utilizar o md5sum ou sha1sum que podem detectar erros de transferência. \\
+A partir de agora, use seu login padrão e quando necessário adicione \texttt{sudo} na frente de seu comando para executar a operação com privilégio de administrador. Para sair do seu login atual basta digitar o comando \texttt{exit} no terminal virtual. \\
 
 \begin{lstlisting}
 # Inventário [ Internet ] { Linux }
 # 1. cat /etc/network/interfaces ; mostra o conteúdo do arquivo interface onde o nome das interfaces de conexão com a internet estão registradas. 
 # 2. ip a ; mostra as interfaces de conexão de rede.
 # 3. ping HOST ; testa conectividade com a internet.
-# 4. hostname -I ; mostra seu IPv6 e IPv4.
-# 5. apt install NetworkManager ; instala a ferramenta (nmcli) NetworkManager, mais moderna, com suporte a IPv6.
-# 6. nmcli device status ; mostra via NetworkManager as interfaces de rede e o estado de conexão.
-# 7. nmcli networking on ; ativa as interfaces de conexão de rede via nmcli. 
-# 8. nmcli networking off ; desativa as interfaces de conexão de rede. 
-# 9. nmcli device connect NOME ; ativa uma interface de rede.
+# 4. pint 8.8.8.8 ; testa conectividade com o server dns google
+# 5. hostname -I ; mostra seu IPv6 e IPv4.
+# 6. apt install net-tools ; instala ferramentas legadas de gerenciamento de rede.
+# 7. apt install network-manager ; instala a ferramenta (nmcli) NetworkManager, mais moderna, com suporte a IPv6.
+# 8. nmcli device status ; mostra via NetworkManager as interfaces de rede e o estado de conexão.
+# 9. nmcli networking on ; ativa as interfaces de rede. 
+# 10. nmcli networking off ; desativa as interfaces de rede. 
+# 11. nmcli device connect NOME ; ativa uma interface de rede.
+# 12. nmcli radio wifi on ; ativa a detecção de rede wifi.
+# 13. nmcli device wifi list ; lista as redes wifi disponíveis.
+# 14. nmcli device wifi connect NOME_DA_REDE password SENHA_DA_REDE 
 \end{lstlisting}
 
 \vspace{\baselineskip}
 
-A instalação mínima debian vem equipada com ferramentas de gerenciamento de rede, porém é interessante para o usuário comum instalar a ferramenta \textbf{NetworkManager} que dá suporte a tecnologia de rede \texttt{IPv6}. No caso você deve executar o comando \texttt{apt install NetworkManager} que irá instalar via repositório debian a ferramenta \texttt{nmcli}. \\
+A instalação mínima debian vem equipada com ferramentas de gerenciamento de rede, porém é interessante para o usuário comum instalar a ferramenta \textbf{NetworkManager} que dá suporte a tecnologia de rede \texttt{IPv6}. No caso você deve executar o comando \texttt{sudo apt install network-manager}. \\
 
 \begin{lstlisting}
 * O que são aplicativos/programas ? 
+** O que são drivers? O que é firmware ?
 * O que são processos ?
 * O que são serviços ?
 * Como linux gerencia os serviços em linux ?
 \end{lstlisting}
 
-\vspace{\baselineskip}
+\vspace{\baselineskip}    
 
 Ao instalar o \texttt{NetworkManager} o sistema legado poderá entrar em conflito com o \texttt{nmcli}, para que isso não ocorra você deve editar algumas linhas do arquivo \texttt{/etc/network/interfaces}. Deixe as linhas associadas ao \texttt{lo} loopback como estão e insira o caractere \texttt{\#} à frente das linhas associadas as outras interfaces de rede. Linhas que começam com \texttt{\#} em muitas linguagens de programação e scripts (incluso scripts linux) são linhas de comentários, sendo ignoradas durante a execução. \\
 
@@ -584,55 +657,113 @@ Tomado estas precauções o sistema deve estar novamente habilitado para conexã
 
 O programa \texttt{systemctl} vem do pacote \textbf{systemd} que gerencia os serviços do linux, serviços são aplicativos em segundo plano, geralmente ativados ao inicializar o sistema, diferente de aplicativos, que são ativados por interação com o usuário.\\
 
+Não é raro que alguns adaptadores de rede wifi (\texttt{broadcom}) não funcionem corretamente com os drivers padrão da instalação linux. Ao instalar linux você deve assumir que provavelmente terá que resolver problemas de adaptadores de rede e dispositivos de som, são problemas bem comuns na comunidade linux.\\
+
 \begin{lstlisting}
-# Inventário [ Firewall ] { Linux }
-# 1. apt install ufw ; instala o aplicativo uncomplicated firewall.
-# 2. ufw enable ; habilita o firewall globalmente.
-# 3. ufw disable ; desabilita o firewall globalmente.
-# 4. ufw status ; mostra o status do firewall.
-# 6. ufw allow PORT ; habilita uma porta de rede.
-# 7. ufw deny PORT ; bloqueia uma porta de rede.
-# 8. ufw allow SERVICE ; habilita um service (example: ssh)
-# 9. ufw delete allow PORT ; remove rule
-# 10. ufw reset ; reset all rules
-# 11. ufw default deny incoming ; block incoming by default
-# 12. ufw default allow outgoing ; allow outgoing by default
-# 13. ufw allow from IP ; allow specific IP
-# 14. ufw allow from IP to any port PORT ; allow IP to port
-# 15. iptables -L ; list iptables rules
-# 16. iptables -F ; flush iptables rules
-# 17. nft list ruleset ; list nftables rules
-# 18. ss -tuln ; list listening ports
-# 19. netstat -tuln ; list open ports (legacy)
-# 20. systemctl enable ufw ; enable firewall at boot
+* Quais problemas comuns com adaptadores de rede wifi ?
+** Como checar por problemas em linux ?
+*** Como usar dmesg e grep para coletar informações de erro ? 
+** Como resolver problemas de adaptadores de rede ?
+*** Como editar blacklists de drivers ?
+*** Como desativar suspensão de wifi da política de gerenciamento de energia ?
 \end{lstlisting}
 
 \vspace{\baselineskip}
 
-É interessante o usuário linux aprender um pouco sobre a sintaxe de combinação de comandos, ele pode ser útil para criar scripts personalizados, para verificar erros e configurações do sistema e para buscar informações filtradas.\\
+Dois problemas são bem comuns em relação aos adaptadores de rede wifi, especialmente em hardwares antigos, primeiro problema é quando o sistema linux inicializa um driver incompatível, causando instabilidade, e o segundo problema é a política de energia que o adaptador não dá suporte, possivelmente causando instabilidade e quedas recorrentes de conexão. \\
+
+A primeira coisa que precisa ser feita na suspeita de problemas de rede é confirmar mensagens de erro usando a ferramenta do sistema \texttt{dmesg}. Para evitar erros em comandos complexos, recomendo sempre criar um arquivo primeiro e depois executá-lo usando o comando \texttt{bash nome\_do\_arquivo}. \\
 
 \begin{lstlisting}
-# Inventário [ Combinação de Comandos de Terminal ] { Linux, Debian }
-# 1. COMANDO & ; Executa o comando em segundo plano (background), liberando o terminal.
-# 2. COMANDO1 && COMANDO2 ; Executa COMANDO2 apenas se COMANDO1 terminar com sucesso.
-# 3. COMANDO1 | COMANDO2 ; Pipe, envia a saída padrão de COMANDO1 para a entrada padrão de COMANDO2.
-# 5. COMANDO1 || COMANDO2 ; Executa COMANDO2 apenas se COMANDO1 falhar.
-# 6. COMANDO > ARQUIVO ; Redireciona a saída padrão para um arquivo, sobrescrevendo-o.
-# 7. COMANDO >> ARQUIVO ; Adiciona a saída padrão ao final de um arquivo.
-# 8. COMANDO < ARQUIVO ; Usa o conteúdo de um arquivo como entrada padrão do comando.
-# 9. COMANDO 2> ARQUIVO ; Redireciona a saída de erro (stderr) para um arquivo.
-# 10. COMANDO > ARQUIVO 2>&1 ; Redireciona stdout e stderr para o mesmo arquivo.
-# 11. COMANDO &> ARQUIVO ; Redireciona stdout e stderr juntos (bash).
-# 12. COMANDO1 | tee ARQUIVO ; Exibe a saída no terminal e salva simultaneamente em arquivo.
-# 13. COMANDO1 |& COMANDO2 ; Pipe que envia stdout e stderr juntos para outro comando.
-# 14. jobs ; Lista tarefas em background da sessão atual.
-# 15. COMANDO1 | grep "TEXTO" ; Filtra saída textual usando padrões.
-# 16. COMANDO1 | sort | uniq ; Ordena e remove linhas duplicadas.
+# dmesg coleta informações de eventos do sistema 
+# grep filtra as informações com mensagens de erro 
+sudo dmesg | grep -iE "error|critical|failed|failure" 
 \end{lstlisting}
+
+\vspace{\baselineskip}
+
+Em caso de erro irá aparecer alguma mensagem na tela, você terá que identificar sobre o que se trata, nem todas as mensagens de erros são fatais, podendo ser ignoradas. Porém as mensagens de erro associado aos adaptadores de rede podem ser por conta do sistema estar utilizando drivers incompatíveis com o seu hardware. Neste caso o melhor é tentar bloquear o carregamento destes drivers, para que o sistema utilize outros substitutos. \\
+
+O bloqueio de drivers incompatíveis força o sistema linux a usar os outros drivers disponíveis, esse procedimento é bem comum no sistema linux e seus comandos geralmente ficam na pasta \texttt{/etc/modprobe.d/}. Use o comando \texttt{cd /etc/modprobe.d/}, esse comando irá navegar o sistema de arquivos para esta pasta do sistema, depois use o comando \texttt{ls -la} para mostrar a lista com o conteúdo desta pasta. \\
+
+Para solucionar problemas de rede com esta abordagem, você deve identificar o driver que está causando problemas com os comandos \texttt{lspci -k}, que lista os dispositivos e seus drivers, e o comando \texttt{dmesg} descrito anteriormente. Se o nome das mensagens de erro corresponder a algum driver carredago do dispositivo de rede, você pode tentar bloqueá-lo da inicialização. \\
+
+\begin{lstlisting}
+# 1. crie o arquivo com: sudo touch /etc/modprobe.d/wifi_adapter_blacklist.conf 
+# 2. substitua NOME_DRIVER pelo nome do driver conflitante 
+# ... exemplos : b43, b43legacy, brcmsmac, bcma, ssb, brcm80211.
+# ... você pode bloquear mais que um driver, porém comece com o mais suspeito ...
+# ... e reinicie o sistema.
+blacklist NOME_DRIVER_1
+blacklist NOME_DRIVER_2
+blacklist NOME_DRIVER_3
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Como os drivers são carregados no initramfs, execute o comando \texttt{sudo update-initramfs -u}, este comando irá atualizar os drivers a serem carregados. Não desative qualquer driver, somente os de dispositivos como rede e som, se você desativar drivers essenciais o sistema operacional não vai inicializar. Feito isso, reinicie o sistema com \texttt{sudo reboot}.\\
+
+Caso não haja mais erros, basta agora ativar o wifi usando os comandos do programa \texttt{nmcli}. \\
+
+\begin{lstlisting}
+nmcli radio wifi on 
+nmcli device wifi list 
+# substitua o SSID e o PASSWORD
+nmcli device wifi connect SSID password PASSWORD 
+nmcli device status 
+\end{lstlisting}
+
+% ==============================================================================================
+\section{Gerenciador de Pacotes}
+
+\begin{lstlisting}
+* Como instalar programas em linux ?
+** O que é apt, apt-get, dpkg e .deb em linux ?  
+** Onde é configurado os repositórios do apt ? 
+** Como acessar e editar os repositórios do apt ? 
+*** Onde estão localizados os arquivos com a lista de repositórios ? 
+* Quais as práticas de segurança ao instalar aplicativos em linux ?
+** Quais as práticas de segurança ao instalar aplicativos open-source ?
+** O que são checksums ?
+*** Quais comandos para calcular checksums em linux ? 
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Diferentes distribuições usam diferentes gerenciadores de pacotes. No debian linux, tradicionalmente se usa o \texttt{apt-get}, sendo o \texttt{apt} apenas uma interface mais amigável do \texttt{apt-get}. É possivel instalar um pacote usando diretamente um arquivo \texttt{.deb}, porém é mais comum usar o comando \texttt{apt install NOME} com o nome do pacote para que o gerenciador de pacotes busque pelo pacote em uma lista de repositórios confiáveis.\\
+
+%\hspace{\baselineskip}
+
+Para configurar manualmente os repositórios do gerenciador de pacotes \texttt{apt} o usuário pode editar diretamente o arquivo \texttt{/etc/apt/sources.list} e adicionar as linhas com os mirrors do repositório oficial.\\
+
+\begin{lstlisting}
+# /etc/apt/sources.list com endereço padrão do debian 
+# 1. deb : binários pré-compilados 
+# 2. deb-src : códigos fontes
+# -- Repositório Principal
+deb http://deb.debian.org/debian/ trixie main non-free-firmware contrib non-free
+deb-src http://deb.debian.org/debian/ trixie main non-free-firmware contrib non-free
+# -- Repositório de Update de Segurança
+deb http://security.debian.org/debian-security trixie-security main non-free-firmware contrib non-free
+deb-src http://security.debian.org/debian-security trixie-security main non-free-firmware contrib non-free
+# -- Repositório de Updates
+deb http://deb.debian.org/debian/ trixie-updates main non-free-firmware contrib non-free
+deb-src http://deb.debian.org/debian/ trixie-updates main non-free-firmware contrib non-free
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Editar o arquivo como acima para a versão \texttt{trixie} é suficiente para que o gerenciador de pacotes fique funcional. Caso esteja usando outra versão você terá que substituir \texttt{trixie} pelo nome da versão da sua distribuição. Execute o comando abaixo:
+
+$$ \texttt{sudo apt update \&\& sudo apt upgrade} $$
 
 \vspace{\baselineskip}
 
 Na versão mínima do Debian você terá que atualizar o sistema de maneira manual caso não instale um programa para essa finalidade. Verifique regularmente por atualizações usando o \texttt{apt update} e instale usando \texttt{apt upgrade}. O sistema de gerenciamento de pacotes \texttt{apt} diferencia entre pacotes instalados manualmente e pacotes instalados como dependência, o comando \texttt{apt autoremove} desinstala os pacotes instalados como dependência de pacotes que já não são mais necessários, é interessante executar estes comandos sempre que desinstalar um pacote ou após uma atualização para salvar espaço em disco. \\
+
+Além do arquivo \texttt{/etc/apt/sources.list}, muitos aplicativos de terceiros colocam suas próprias listas de repositórios no diretório \texttt{/etc/apt/sources.list.d/}, é interessante checar tais repositórios sempre que desinstalar programas, pois alguns programas deixam restos durante a desinstalação. \\
+
+% É importante saber onde está definido a lista de procura pelos repositórios. Posteriormente será necessário ativar versões do repositório para instalação de drivers proprietários (para placa de vídeo por exemplo). O diretório em que configurações padrão geralmente ficam armazenados é o diretório \texttt{/etc}, para o gerenciador de pacotes \texttt{apt} podemos encontrar na pasta \texttt{/etc/apt} o arquivo \texttt{sources.list} e o diretório \texttt{sources.list.d/} onde alguns aplicativos registram seus próprios repositórios. Você pode visualizar seu conteúdo com o comando \texttt{cat /etc/apt/sources.list}. \\
 
 \begin{lstlisting}
 # Inventário [ Gerenciador de Pacotes ] { Linux, Debian }
@@ -654,9 +785,35 @@ Na versão mínima do Debian você terá que atualizar o sistema de maneira manu
 # 16. apt-mark showmanual // mostra pacotes instalados manualmente pelo usuário. (alguns pacotes são marcados como manual mesmo sem a interação do usuário, portanto tome cuidado ao desinstalar)
 \end{lstlisting}
 
-\vspace{\baselineskip}
+% ==============================================================================================
+\section{Aliases - Comandos Customizados}
+
+\hspace{\baselineskip}
 
 Apesar de muitos recursos do linux possuírem interfaces gráficas amigáveis para o usuário comum, o sistema operacional linux ainda é muito orientado a comandos de terminal e arquivos de configuração, por isso pode ser considerado mais difícil que os outros sistemas. Ao seguir este tutorial você estará lidando com essa parte mais tradicional, o que irá lhe dar vantagem caso encontre problemas ou queira customizar sua experiência linux. \\
+
+É interessante o usuário linux aprender um pouco sobre a sintaxe de combinação de comandos, ele pode ser útil para criar scripts personalizados, para verificar erros e configurações do sistema e para buscar informações filtradas.\\
+
+\begin{lstlisting}
+# Inventário [ Combinação de Comandos de Terminal ] { Linux, Debian }
+# 1. COMANDO & ; Executa o comando em segundo plano (background), liberando o terminal.
+# 2. COMANDO1 && COMANDO2 ; Executa COMANDO2 apenas se COMANDO1 terminar com sucesso.
+# 3. COMANDO1 | COMANDO2 ; Pipe, envia a saída padrão de COMANDO1 para a entrada padrão de COMANDO2.
+# 5. COMANDO1 || COMANDO2 ; Executa COMANDO2 apenas se COMANDO1 falhar.
+# 6. COMANDO > ARQUIVO ; Redireciona a saída padrão para um arquivo, sobrescrevendo-o.
+# 7. COMANDO >> ARQUIVO ; Adiciona a saída padrão ao final de um arquivo.
+# 8. COMANDO < ARQUIVO ; Usa o conteúdo de um arquivo como entrada padrão do comando.
+# 9. COMANDO 2> ARQUIVO ; Redireciona a saída de erro (stderr) para um arquivo.
+# 10. COMANDO > ARQUIVO 2>&1 ; Redireciona stdout e stderr para o mesmo arquivo.
+# 11. COMANDO &> ARQUIVO ; Redireciona stdout e stderr juntos (bash).
+# 12. COMANDO1 | tee ARQUIVO ; Exibe a saída no terminal e salva simultaneamente em arquivo.
+# 13. COMANDO1 |& COMANDO2 ; Pipe que envia stdout e stderr juntos para outro comando.
+# 14. jobs ; Lista tarefas em background da sessão atual.
+# 15. COMANDO1 | grep "TEXTO" ; Filtra saída textual usando padrões.
+# 16. COMANDO1 | sort | uniq ; Ordena e remove linhas duplicadas.
+\end{lstlisting}    
+
+\vspace{\baselineskip}
 
 Quando se abre o terminal virtual, o diretório padrão inicial é o diretório do usuário na pasta home \texttt{/home/NOME}. Nesse diretório você vai encontrar diretórios de uso corriqueiro como Documentos, Imagens, Videos, Downloads, além de diversos arquivos de configuração (basta executar o comando \texttt{ls -la}). Um desses arquivos é o \texttt{.bashrc} que configura o terminal virtual em si. Arquivos e pastas que começam com ponto (\texttt{.arquivo} ou \texttt{.dir/}) são arquivos que geralmente ficam ocultos por padrão, o comando \texttt{ls -a} diz para o programa \texttt{ls} para mostrar todos os arquivos, incluso os ocultos. \\
 
@@ -667,50 +824,34 @@ O arquivo \texttt{.bash\_aliases} serve para definir comandos customizados (alia
 \begin{lstlisting}
 # Exemplos de Comandos para .bash_aliases
 alias full_update='apt update && apt upgrade && apt autoremove'
-alias processes='ps auxf > output.txt'
-alias services='systemctl list-units --type=service --state=running | tee output.txt'
+
+alias errors='sudo dmesg | grep -iE "error|critical|failed|failure" | tee ~/errors.txt'
+alias processes='ps auxf > ~/processes.txt'
+alias services='systemctl list-units --type=service --state=running | tee ~/services.txt'
+alias devices='lspci -k | tee ~/devices.txt'
+alias storage_devices='sudo fdisk -l | tee ~/storage_devices.txt'
+alias mount_points='lsblk -l | tee ~/mount_points.txt'
+
+alias online='nmcli networking on'
+alias offline='nmcli networking off'
+
 alias restart='sudo reboot'
 alias hibernate='systemctl hibernate'
 alias suspend='systemctl suspend'
 alias shutdown='sudo poweroff'
-alias errors='sudo dmesg | grep -iE "error|critical|failed|failure" | tee output.txt'
+
 alias activate='chmod +x'
 alias deactivate='chmod -x'
-
-# Inventário [ Editor de Texto Nano ] { Linux, Debian }
-# -- Linhas de Comando 
-# 1. nano <ARQUIVO> ; Abre ou cria um arquivo de texto para edição no editor nano.
-# 2. sudo nano <ARQUIVO> ; Abre um arquivo com permissões administrativas.
-# -- Atalhos Principais Dentro do Nano --
-# 1. CTRL + O ; Salva o arquivo atual.
-# 2. CTRL + X ; Fecha o editor nano.
-# 3. CTRL + K ; Recorta linha atual.
-# 4. CTRL + U ; Cola conteúdo recortado.
-# 5. CTRL + W ; Pesquisa texto no arquivo.
-# 6. CTRL + \ ; Pesquisa e substituição de texto.
-# 7. CTRL + G ; Exibe ajuda do nano.
-# 8. ALT + U ; Desfaz última alteração.
-# 9. ALT + E ; Refaz alteração desfeita.
-# 10. ALT + A ; Inicia/finaliza seleção de texto.
-# 11. ALT + 6 ; Copia linha ou seleção.
-# 12. ALT + / ; Vai para o fim do arquivo.
-# 13. ALT + \ ; Vai para o início do arquivo.
-# 14. CTRL + Y ; Move uma página para cima.
-# 15. CTRL + V ; Move uma página para baixo.
-# 16. CTRL + L ; Redesenha a tela.
-# 17. ALT + ] ; Vai para próximo bloco/parêntese.
-# 18. ALT + [ ; Vai para bloco/parêntese anterior.
 \end{lstlisting}
 
 % ==============================================================================================
 
-\section{Configurações do Servidor Gráfico}
+\section{Servidor Gráfico}
 
 \begin{lstlisting}
 * Quais as opções de servidor gráfico ?
 * Como instalar e usar o servidor gráfico X11 ?
-* Quais os arquivos de configuração associados ao servidor gráfico X11 ?
-* Como inicializar o servidor gráfico, rodar programas e sair do servidor xorg ?
+** Como inicializar o servidor gráfico, rodar programas e sair do servidor xorg ?
 \end{lstlisting}
 
 \vspace{\baselineskip}
@@ -732,6 +873,17 @@ O comando acima deve ser o suficiente para instalar o \texttt{X11}. O \texttt{db
 \vspace{\baselineskip}
 
 Ao instalar o xorg, o usuário pode começar a usar programas de interface gráfica, mesmo sem um gerenciador de janelas. Você pode testar por exemplo instalar o editor de texto geany. No tty, inicie a sessão gráfica com \texttt{startx}, após isso instale o geany com \texttt{sudo apt install geany} e execute \texttt{geany} para abrir o programa via terminal. Você pode também navegar na internet instalando o firefox com \texttt{sudo apt install firefox-esr} e executando \texttt{firefox} no terminal da sessão gráfica.\\
+
+Caso tenha algum problema com o teclado você pode executar alguns dos comandos abaixo: \\
+
+\begin{lstlisting}
+# Inventário [ Configurações do Teclado ] { Linux, Debian }
+# 1. sudo dpkg-reconfigure keyboard-configuration ; Reconfigura manualmente o teclado.
+# 2. setxkbmap -query ; Mostra as configurações do teclado.
+# 3. setxkbmap br ; Muda o layout do teclado para português brasileiro.
+\end{lstlisting}
+
+\vspace{\baselineskip}
 
 \begin{lstlisting}
 * Como instalar o gerenciador de janelas i3 ?
@@ -929,7 +1081,7 @@ Os pacotes GTK e Qt geralmente não são instalados automaticamente, por isso, a
 O pacote de interface GTK pode ser customizado via temas, estes por sua vez podem ser acessados usando o \texttt{lxappearance}. Crie a pasta temas com o comando \texttt{mkdir $\sim$/.themes/} e coloque os temas GTK que você baixar, extraindo o seu conteúdo nesta pasta. Nunca execute scripts \texttt{.sh} de instalação de temas, os temas GTK não requerem execução de scripts, porém você pode encontrar temas via instalação pelo repositório oficial (via \texttt{apt}). 
 
 % ==============================================================================================
-\section{Configurações de Servidor de Áudio}
+\section{Servidor de Áudio}
 
 \vspace{\baselineskip}
 
@@ -957,8 +1109,44 @@ Se o seu computador tiver várias saídas de áudio ainda será necessário conf
 # 5. pavucontrol ; interface gráfica gtk de configuração de áudio.
 \end{lstlisting}
 
+%\begin{lstlisting}
+%* Quais os problemas mais comuns de áudio em linux ?
+%* Quais abordagens para resolver os problemas de áudio em linux ?
+%end{lstlisting}
+
 % ==============================================================================================
 \section{Outros}
+
+\begin{lstlisting}
+Práticas de Segurança Linux 
+1. Dê preferência por instalação via repositórios oficiais ; Repósitórios oficiais da sua distribuição linux são regularmente mantidos pela distribuição, verificando assinaturas digitais e mantendo dependências seguras.
+2. Ao utilizar repositórios de terceiros verifique as assinaturas GPG.
+3. Atualize regularmente o sistema para obter correções e atualizações de segurança.
+4. Evite instalação via script .sh ; Usar scripts para instalação é uma má prática. Algumas fontes conhecidas usam scripts deste tipo, porém você deve ler atentamente o script e evitar fontes desconhecidas. 
+5. Sempre tente executar uma tarefa primeiro como usuário normal ; Boa parte das tarefas, incluso algumas instalações, podem ser feitas como usuário normal, use sudo somente se necessário.
+6. Reputação e Auditoria ; Um repositório/aplicativo ser de código-aberto não implica automaticamente em segurança, é necessário que auditorias sejam feitas regularmente e tenha uma comunidade ativa. É muito arriscado usar repositórios pouco conhecidos ou abandonados. 
+7. Compilação a partir da fonte ; Se o aplicativo for de código aberto, é possível optar por binários já pré-compilados. Geralmente os repositórios disponibilizam as checksums para fazer a comparação, porém a compilação a partir da fonte costuma ser mais segura. 
+8. Checksums ; O binário de um aplicativo pode ser comparado com o original usando o recurso checksum. Checksums são algoritmos que retornam um valor numérico a partir de um arquivo binário, a ideia é que para um mesmo aplicativo temos apenas um valor de checksum para um mesmo algoritmo, então é possível verificar se um aplicativo é autentico ou se não foi alterado ou corrompido. 
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Um aplicativo de código-aberto não se torna automaticamente seguro, é necessário haver uma comunidade de programadores para fazer auditorias de código de maneira regular. Projetos pequenos ou abandonados podem ser um risco de segurança para o usuário. \\
+
+Muitos aplicativos de código-aberto disponibilizam binários pré-compilados, o que torna mais prático para projetos grandes, pois a compilação a partir da fonte exige algum conhecimento de programação além de consumir tempo e processamento do computador. Para verificar se os binários pré-compilados correspondem ao resultado da compilação as distribuições linux vem equipadas com comandos para calcular checksums. Esses comandos geram um número (hash) a partir do conteúdo do próprio arquivo binário, então um mesmo arquivo binário gera apenas um único número para um mesmo algoritmo. Seria ideal que para um mesmo algoritmo dois binários diferentes gerassem valores diferentes, mas não é sempre isso que acontece, então esse método deve ser interpretado da seguinte forma, binários adulterados tem maiores chances de gerarem valores diferentes dependendo do algoritmo. Quando dois binários geram um mesmo hash dizemos que há colisão. \\
+
+\begin{lstlisting}
+# Inventário [ Checksums ] { Linux, Debian }
+# 1. sha256sum <ARQUIVO> # SHA-256 (256-bit) - Checksum Padrão, com chance de colisão estatisticamente irrelevante. 
+# 2. md5sum <ARQUIVO> # MD5 (128-bit) - Não é mais utilizado para autenticação por ser fácil forjar colisão de hash com ferramentas atuais. Porém pode ser usado para verificar modificações e corrupções durante cópia e transferência de arquivos. 
+# 3. sha1sum <ARQUIVO> # SHA-1 (160-bit) - Não pode mais ser utilizado para autenticação, porém pode ser usado para verificar modificações e corrupções durante cópia e transferência de arquivos.
+# 4. sha384sum <ARQUIVO> # SHA-384 (384-bit) - Mais forte que SHA-256.
+# 5. sha512sum <ARQUIVO> # SHA-512 (512-bit) - Hash maior, mais forte que SHA-256.
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
+Para verificar autenticidade geralmente você irá comparar o sha256sum gerado pelo seu arquivo com o do distribuidor. Para verificar corrupção não intencional de arquivos durante transferência ou cópia você pode utilizar o md5sum ou sha1sum que podem detectar erros de transferência. \\    
 
 \hspace{\baselineskip}
 

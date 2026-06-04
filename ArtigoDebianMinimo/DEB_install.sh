@@ -24,7 +24,7 @@ sudo apt install -y i3 picom # i3 window manager and picom compositor
 
 # -- build/compilation toolchain/toolkits 
 sudo apt install -y build-essential # install GCC + make
-sudo apt install -y libx11-dev libxkbcommon-dev libxkbcommon-x11-dev # x11 dev tools 
+# sudo apt install -y libx11-dev libxkbcommon-dev libxkbcommon-x11-dev # x11 dev tools 
 sudo apt install -y libgtk-3-0 libgtk-4-1 # gtk toolkit for gtk graphical interface apps 
 
 # -- sound
@@ -37,19 +37,26 @@ sudo apt install -y lxpolkit # gtk daemon for sudo privilege scalation
 # sudo apt install -y polkitd # daemon for sudo privilege scalation
 sudo apt install -y lxappearance # gtk appearance
 sudo apt install -y lxrandr # gtk to set display monitors
-# sudo apt install -y arandr # gtk to set display monitors (legacy,older)
+# sudo apt install -y arandr # gtk to set display monitors (legacy)
 sudo apt install -y 7zip # file extract/compression tool 
-sudo apt install -y firefox-esr # firefox to install brave (firefox is the new internet explorer :3)
+sudo apt install -y firefox-esr # firefox browser 
+# sudo apt install -y falkon # lightweight browser
+# sudo apt install -y surf # lightweight i3 style browser 
+# sudo apt install -y qutebrowser # lightweight vim style browser 
 sudo apt install -y curl wget git # tools to get things on internet 
 sudo apt install -y htop # taskmanager 
 # sudo apt install -y btop # better taskmanager
 sudo apt install -y pavucontrol alsa-utils # guis for sound configs 
-sudo apt install -y feh nitrogen scrot imagemagick # screenshot and background tools 
+sudo apt install -y feh scrot imagemagick # screenshot and background tools 
+# sudo apt install -y nitrogen # background settings gui 
 # sudo apt install -y geany # light text/code editor
 # sudo apt install -y gnome-calendar # calendar 
 # sudo apt install -y obs-studio # video capture and video stream
 # sudo apt install -y wine wine64 winetricks # wine windows application layer
 # sudo apt install -y wine32:i386 # legacy systems wine layer
+# sudo apt install -y evince # light gnome-based pdf viewer 
+# sudo apt install -y transmission # lightweight torrent client
+# sudo apt install -y qbittorrent # torrent client of qbittorrent 
 
 # -- gtk themes 
 # sudo apt install -y adwaita-icon-theme # icon theme 
@@ -63,6 +70,7 @@ sudo apt install -y feh nitrogen scrot imagemagick # screenshot and background t
 # sudo apt install -y xbacklight # screen brightness 
 sudo apt install -y brightnessctl # screen brightness
 # sudo apt install -y dunst # notification daemon 
+# sudo apt install -y ufw # uncomplicated firewall 
 
 # -- fonts 
 sudo apt install -y fonts-dejavu-core fonts-freefont-ttf fonts-liberation \
