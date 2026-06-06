@@ -67,7 +67,9 @@ Tutorial de instalação customizada de linux para uso doméstico (\textit{Deskt
 
 O objetivo deste texto é guiar o leitor durante a instalação da distribuição \textbf{Debian} a partir de uma instalação mínima. Caso o leitor não tenha interesse em uma instalação customizada, já existem várias distribuições disponíveis, inclusive a distribuição do próprio Debian, com ambientes desktop pré-instalados. \\
 
-Quais as vantagens de uma instalação mínima? Ao instalar uma versão mínima você terá controle total dos aplicativos instalados. Essa abordagem pode evitar desperdício de espaço em disco, o sistema terá menor uso de recursos de hardware por processos em segundo plano desnecessários e o usuário irá ganhar mais experiência sobre o funcionamento do sistema linux. Porém nenhum destes argumentos serão mais convincentes do que a essência da filosofia \textbf{DIY} (\textit{do it yourself}, faça você mesmo). A sensação de construir é uma finalidade em si. \\
+O gerenciador de janelas i3 é um pouco mais difícil de usar que os ambientes gráficos tradicionais, pois requer o aprendizado de atalhos de teclado para usar de maneira eficiente. Isso não é um problema para as gerações que já estão acostumadas com jogos eletrônicos, porém não é indicado para os demais usuários. Se não estiver disposto a usar o sistema operacional com atalhos de teclado \textbf{este tutorial não foi feito para você}.\\
+
+Quais as vantagens de uma instalação mínima? Ao instalar uma versão mínima você terá maior controle dos aplicativos instalados. Essa abordagem pode evitar desperdício de espaço em disco, o sistema terá menor uso de recursos de hardware por processos em segundo plano desnecessários e o usuário irá ganhar mais experiência sobre o funcionamento do sistema linux. Embora convincentes, nenhum destes argumentos serão mais efetivos do que a essência da filosofia \textbf{DIY} (\textit{do it yourself}, faça você mesmo), a sensação de construir é uma finalidade em si. \\
 
 Para usuários mais avançados o \textbf{Arch-Linux} é uma opção interessante, porém o Arch-Linux ainda é considerado uma distribuição instável, o que pode levar a problemas para usuários menos experientes. Para usuários intermediários, que buscam maior controle dos componentes instalados do sistema operacional de uma distribuição mais tradicional, a instalação a partir do Debian pode ser mais interessante. \\
 
@@ -156,7 +158,7 @@ A segunda recomendação é garantir a reversibilidade. Faça backups de arquivo
 
 Se você estiver migrando do windows será também necessário verificar o status do \textbf{bitlocker}, do \texttt{Secure Boot} (TPM) e da inicialização rápida. Porém estes detalhes serão importantes quando você já estiver decidido a instalar o sistema. Caso o sistema bitlocker de criptografia esteja ativado no seu dispositivo, obtenha e anote em um papel ou caderno a chave bitlocker do seu dispositivo via sua conta microsoft, isso é muito importante, sem a chave bitlocker não será possível sair do modo de recuperação do bitlocker e você irá perder os dados gravados no dispositivo. \\
 
-Na instalação da máquina virtual, a conexão com a internet não será um problema, pois a máquina virtual acessa a internet através do sistema hospedeiro. No caso da instalação definitiva, você irá encontrar problemas se estiver utilizando hardware antigo (problemas com o adaptador wifi são bem comuns), porém a instalação do sistema mínimo não requer conexão com a internet. Se o seu computador tiver conexão via \textbf{cabo ethernet} , use a instalação via internet, se o seu computador precisar de conexão wifi, este tutorial irá guiar o leitor para uma instalação sem internet, pois a instalação de pacotes adicionais poderá ser feita inicialmente direcionando o gerenciador para os arquivos de imagem de sistema \texttt{.iso} dos instaladores.\\ 
+Na instalação da máquina virtual, a conexão com a internet não será um problema, pois a máquina virtual acessa a internet através do sistema hospedeiro. No caso da instalação definitiva, você irá encontrar problemas se estiver utilizando hardware antigo (problemas com o adaptador wifi são bem comuns), porém a instalação do sistema mínimo não requer conexão com a internet. Se o seu computador tiver conexão via \textbf{cabo ethernet}, use a instalação via internet, se o seu computador precisar de conexão wifi, este tutorial irá guiar o leitor para uma instalação sem internet, pois a instalação de pacotes adicionais poderá ser feita inicialmente direcionando o gerenciador de pacotes para os arquivos de imagem de sistema \texttt{.iso} dos instaladores.\\ 
 
 As perguntas do texto não são exercícios para serem respondidos formalmente, nem são perguntas que necessariamente serão respondidas aqui. São perguntas para verificação rápida dos conceitos. Não execute operações descritas neste texto enquanto houver conceitos obscuros. Lembre-se que instalação de sistemas operacionais pode levar a perda de dados e possivelmente a perda de acesso aos sistemas operacionais instalados.
 
@@ -250,11 +252,11 @@ Esta seção será útil para a instalação definitiva em disco, se ainda estiv
 
 A melhor ferramenta para criação de mídias de instalação é o \texttt{ventoy}, que permite copiar os arquivos \texttt{.iso} diretamente na mídia usb, sem precisar de reformatação. As outras ferramentas como rufus e balena etcher requerem formatação, apagando os arquivos anteriores da mídia usb.\\
 
-Você pode encontrar a ferramenta ventoy em \texttt{github.com/ventoy/Ventoy}, compile ou baixe binários já pré-compilados e execute as versões de interface gráfica correspondente a arquitetura de seu computador e sistema operacional atual. Os binários podem ser baixados diretamente em \texttt{www.ventoy.net}, extraia e busque pelos executáveis como \texttt{Ventoy.GUI\_X}. \\
+Você pode encontrar a ferramenta ventoy em \texttt{github.com/ventoy/Ventoy}. Compile ou baixe binários já pré-compilados e execute as versões de interface gráfica correspondente a arquitetura de seu computador e sistema operacional atual. Os binários podem ser baixados diretamente em \texttt{www.ventoy.net}, extraia e busque pelos executáveis como \texttt{Ventoy.GUI\_X}. \\
 
 Na interface gráfica do ventoy selecione sua mídia usb (faça backup dos arquivos anteriores, caso necessário) e prossiga com a instalação do ventoy. Quando terminar a instalação do ventoy a sua mídia usb já estará pronta para uso, basta você copiar as imagens \texttt{.iso} de instalação diretamente na mídia usb e configurar o boot do windows para inicializar mídias usb.\\
 
-Poderá ser necessário mudar a ordem de prioridade de boot na bios, para isso basta pressionar o botão de inicialização da BIOS/UEFI e ir na seção de boot para mudar a ordem de inicialização. Deverá aparecer uma lista com os discos rídigos conectados e as mídias removíveis. Alguns menus da BIOS/UEFI permitem você inicializar a partir da bios, neste caso basta selecionar a mídia removível. Caso sua BIOS/UEFI não permita a seleção diretamente, você deve colocar a mídia removível com prioridade superior, salvar as alterações e sair do menu da BIOS/UEFI.\\
+Para inicializar o ventoy poderá ser necessário mudar a ordem de prioridade de boot na bios, para isso basta pressionar o botão de inicialização da BIOS/UEFI e ir na seção de boot. Deverá aparecer uma lista com os discos rídigos conectados e as mídias removíveis. Alguns menus da BIOS/UEFI permitem você inicializar a partir da bios, neste caso basta selecionar a mídia removível. Caso sua BIOS/UEFI não permita a seleção diretamente, você deve colocar a mídia removível com prioridade superior, salvar as alterações e sair do menu da BIOS/UEFI.\\
 
 Configurado a BIOS/UEFI para o boot de mídia removível, ao reinicializar você irá para o menu do ventoy, no menu basta selecionar a versão de imagem linux que você quiser instalar. É interessante ter também algumas ferramentas, como o \texttt{gparted live iso}, que funciona como um sistema de mídia bootável com o aplicativo \texttt{gparted} para gerenciar partições. Criar partições via o instalador do netinst é mais arriscado, por isso recomendo que crie as partições usando o gparted antes de começar a instalação.
 
@@ -305,11 +307,26 @@ A instalação de sistemas operacionais requer algum conhecimento sobre partiç�
 
 Caso esteja em windows, use o gerenciador de disco somente para criar espaços não-alocados, de preferência a partir de partições estendidas (caso esteja utilizando sistema MBR). Use o \texttt{gparted live} para efetivamente criar as partições com o formato adequado. \\
 
+\begin{lstlisting}
+* Como usar o gparted ?
+** Como inicializar o gparted usando live-usb ?
+*** Como analisar os espaços disponíveis ?
+**** Como identificar espaços não-alocados ?
+**** Como identificar partições primárias ?
+**** Como identificar partições estendidas ?
+**** Como identificar partições lógicas ? 
+** Como funciona a execução de operações no gparted ? 
+*** Quais operações podem ser feitas no gparted ?
+*** Quais operações são mais arriscadas ?
+\end{lstlisting}
+
+\vspace{\baselineskip}
+
 Um dos erros comuns durante a criação de partições em sistema MBR é acabar ficando com espaço não-alocado inutilizável, isso se dá por conta da limitação do número de partições primárias e partições estendidas. O sistema MBR dá suporte a no máximo 4 partições primárias, portanto se você esgotar esse número você não irá poder mais criar novas partições. A solução para isso nos sistemas MBR é a criação de uma partição estendida. \\ 
 
-A partição estendida é uma partição primária especial que permite criar partições lógicas, é um container de partições que permite o disco rídigo exceder o número máximo de partições primárias. Porém, o sistema MBR somente dá suporte a uma partição estendida, então se você estiver com três partições primárias, uma estendida (que também conta como primária) e um espaço não-alocado não adjacente a partição estendida, esse espaço não-alocado é inutilizável. \\
+A partição estendida é uma partição primária especial que permite criar partições lógicas, é um container de partições que permite o disco rídigo exceder o número máximo de partições primárias. Porém, o sistema MBR somente dá suporte a uma partição estendida, então se você estiver com três partições primárias, uma estendida (que também conta como primária) e um espaço não-alocado não adjacente à partição estendida, esse espaço não-alocado é inutilizável. \\
 
-Se o espaço não-alocado não estiver contido, porém adjacente a partição estendida, você pode utilizar o \textbf{gparted} para incluir o espaço não-alocado dentro da partição estendida. Lembre-se de fazer isso antes de usar o espaço para instalação, pois essa operação de extensão da partição estendida somente pode ser feita com espaços não-alocados adjacentes. \\ 
+Se o espaço não-alocado não estiver contido, porém adjacente à partição estendida, você pode utilizar o \textbf{gparted} para incluir o espaço não-alocado dentro da partição estendida. Lembre-se de fazer isso antes formatar ou usar o espaço para instalação, pois essa operação de extensão da partição estendida somente pode ser feita com espaços não-alocados adjacentes. \\ 
 
 \begin{lstlisting} 
 Partições Linux
@@ -345,6 +362,18 @@ Você pode simular instalação UEFI ou \texttt{Legacy Boot} na máquina virtual
 
 Muitos computadores com sistema UEFI dão suporte ao modo de compatibilidade CSM que permite carregar discos no formato \texttt{legacy bios}. Verifique na BIOS se o modo de compatibilidade está ativo ou não, pois isso irá mudar um pouco o início da instalação do sistema operacional. \\
 
+\begin{lstlisting}
+# Esquema : ESP|Swap|Root
+1. ESP (/boot/efi) : FAT32 : 550+100*N MB 
+2. Swap : 4-8 GB 
+3. Root (/) Debian Mínimo i3 : ext4 : 50-70 GB 
+
+# N é o número de sistemas operacionais esperados, caso queira mais de uma distro instalada.
+# Se utilizar uma ESP existente, cuidado para não selecionar a opção de formatar.
+# Se o seu sistema tiver menos que 8 GB de ram, coloque o swap com o mesmo valor da ram, caso contrário coloque 8 GB. 
+# Dificilmente o Debian Mínimo com i3 irá passar dos 20 GB, 50 GB é um espaço confortável, para aplicativos grandes como jogos você pode criar uma partição específica e apontar a instalação para esta partição.
+\end{lstlisting}
+
 % ==============================================================================================
 \section{Debian Mínimo} 
 
@@ -352,7 +381,7 @@ Muitos computadores com sistema UEFI dão suporte ao modo de compatibilidade CSM
 
 As distribuições linux podem ser baixadas nos repositórios oficiais sob o formato \texttt{iso}, no caso do debian, no site \texttt{www.debian.org} você pode baixar na seção de downloads a versão \texttt{netinst} ($\sim$ 300 \texttt{MB}) que é uma versão compacta para ser usada com conexão de rede.\\
 
-Para a instalação em disco, caso você esteja em um notebook com hardware \texttt{wifi} antigo e não tenha acesso à internet por cado de rede ethernet, baixe também a versão completa (DVD, $\sim$ 4\texttt{GB}). Se você estiver usando uma mídia removível com \textbf{ventoy} instalado, você pode copiar a imagem da versão completa diretamente na mídia de instalação junto com a imagem do \texttt{netinst}, caso contrário coloque em uma partição linux (\texttt{ext4}) em uma partição diferente da instalação. Este tutorial irá mostra como montar uma \texttt{.iso} para ser utilizado como fonte offline de instalação do gerenciador de pacotes do \textbf{Debian}. \\
+Para a instalação em disco, caso você esteja em um notebook com hardware \texttt{wifi} antigo e não tenha acesso à internet por cado de rede ethernet, baixe também a versão completa (DVD, $\sim$ 4\texttt{GB}). Se você estiver usando uma mídia removível com \textbf{ventoy} instalado, você pode copiar a imagem da versão completa diretamente na mídia de instalação junto com a imagem do \texttt{netinst}, caso contrário coloque em uma partição linux (\texttt{ext4}) diferente da partição de instalação. Este tutorial irá mostrar como montar uma \texttt{.iso} para ser utilizado como fonte offline de instalação do gerenciador de pacotes do \textbf{Debian}, além da configuração manual dos repositórios. \\
 
 Ao configurar a máquina virtual para usar o sistema operacional linux baixado, entre nas configurações da máquina virtual e selecione a \texttt{iso} baixada. Certifique-se de que a máquina esteja configurada para instalação manual, caso contrário ela vai pular as etapas de instalação. \\
 
@@ -383,19 +412,25 @@ Etapas de Instalação:
 ... pode ser a mesma senha do root
 11. Configuração de Relógio do Sistema 
 ... selecione UTC.
-12. Particionamento 
+... se estiver conectado, selecione com base na localização.
+12. Particionamento (CRÍTICO)
 ... selecione particionamento manual 
-... selecione as partições que você criou previamente
-13. Seleção de Softwares Iniciais 
+... selecione as partições que você criou previamente com o gparted
+... tome cuidado para não formatar o ESP de outros sistemas
+... partições vazias ou formatadas com o gparted não precisam de nova formatação
+13. Seleção de Softwares Iniciais (CRÍTICO)
 ... na instalação por interface de terminal ...
 ... não aperte enter na seleção de software, ... 
 ... aperte espaço para selecionar/deselecionar.
 ... selecione apenas os aplicativos essenciais do sistema.
 ... caso esteja conectado a internet, deselecione as opções de ambiente gráfico.
-14. Instalação do Bootloader no MBR/ESP 
-... instalar o bootloader irá reinstalar o grub.
+14. Instalação do Bootloader no MBR/ESP (CRÍTICO)
+... caso este seja o único ou o principal sistema instale o bootloader.
 ... caso esse seja um sistema secundário e você tenha outro sistema linux instalado ...
-... recomendo não instalar e atualizar o grub pelo outro sistema.
+... instalar o bootloader irá reinstalar o grub,
+... recomendo não instalar e atualizar o grub pelo outro sistema,
+... rejeite a instalação do bootloader e depois selecione para retornar ao menu.
+... caso instale sem querer você pode regenerar o grub posteriormente no sistema principal.
 \end{lstlisting}
 
 \vspace{\baselineskip}
@@ -421,7 +456,7 @@ Ao iniciar um linux recém instalado com configuração mínima debian (sem ambi
 
 Você pode executar diferentes tarefas em diferentes terminais virtuais tty alternando com o atalho de teclado \texttt{ctrl+alt+F1}, \texttt{ctrl+alt+F2} ... \texttt{ctrl+alt+FX}. É importante saber destes atalhos de teclados, pois em caso de falha de um ambiente desktop instalado você pode voltar para a interface inicial tty, permitindo você solucionar os possíveis problemas.\\
 
-Diferente dos terminais virtuais, os emuladores de terminal são aplicativos que rodam em sistema gráfico e executam comandos de linha de terminal de maneira similar aos terminais virtuais. Quando se abre um terminal linux em um ambiente desktop completo geralmente é aberto um emulador de terminal, porém você ainda pode acessar um terminal virtual usando as teclas de atalho mencionadas anteriormente. \\ 
+Diferente dos terminais virtuais, os emuladores de terminal são aplicativos que rodam em sistema gráfico e executam comandos de linha de terminal de maneira similar aos terminais virtuais. Quando se abre um terminal linux em um ambiente desktop completo, geralmente é aberto um emulador de terminal, porém você ainda pode acessar um terminal virtual usando as teclas de atalho mencionadas anteriormente. \\ 
 
 Em caso de falha na inicialização do sistemas de arquivos a interface \texttt{initramfs} é carregada. Essa interface contém um sistema de arquivos inicial e comandos que podem ser usados para realizar reparações no sistema de arquivos. Esses comandos são compartilhados na mesma sintaxe com os terminais virtuais e portanto são acessíveis nos terminais virtuais e nos emuladores de terminais. \\
 
@@ -449,9 +484,9 @@ O símbolo $\sim$ é um atalho para o endereço \texttt{/home/username} com \tex
 # 14. mount ; Lista os dispositivos montados. 
 # 15. mount <DEVICE> <DIR> ; Monta um dispositivo como sistema de arquivos com um endereço específico.
 # 16. umount <DIR> ; Desmonta um dispositivo.
-# 17. blkid ; Mostra o UUIDs dos dispositivos e o tipo de sistema de arquivos. 
-# 18. lsblk ; Lista dispositivos e partições.
-# 19. fdisk -l ; Lista partições de maneira mais detalhada.
+# 17. blkid ; Mostra o UUIDs dos dispositivos, nome e o tipo de sistema de arquivos. 
+# 18. lsblk ; Lista dispositivos e partições de maneira superficial.
+# 19. fdisk -l ; Informações específicas das partições.
 # 20. fsck <DEVICE> ; Checa integridade do sistema de arquivos.
 # 21. fsck.ext4 <DEVICE> ; Checa formato ext4 do sistema de arquivos
 # 22. dmesg ; Abre o arquivo de logs do kernel.
@@ -544,6 +579,7 @@ mount -o loop /mnt/linux-data/CAMINHO_ISO /mnt/debian-iso
 O nome \texttt{UNIDADE} é a unidade onde foi colocado a \texttt{.iso} completa. Geralmente tem o formato \texttt{sdXY} com \texttt{X} representando o disco e \texttt{Y} representando a partição do disco. Para saber exatamente qual o nome da partição onde foi colocado os comandos abaixo podem ser úteis.\\
 
 \begin{lstlisting}
+blkid
 lsblk
 fdisk -l 
 \end{lstlisting}
@@ -554,7 +590,7 @@ As primeiras duas linhas do arquivo \texttt{mounting\_debian\_iso.sh} criado mon
 
 O nome \texttt{CAMINHO\_ISO} é o caminho até o arquivo correspondente a \texttt{.iso} a partir do início da \texttt{UNIDADE}. As duas linhas finais montam a \texttt{.iso} no endereço \texttt{/mnt/debian-iso}. \\
 
-Finalizado as modificações necessárias do arquivo criado, agora basta executar o comando \texttt{bash mounting\_debian\_iso.sh} para montar a imagem \texttt{.iso}. Feito isso, você já pode utilizar o \texttt{apt} para fazer instalações de alguns aplicativos importantes.\\
+Finalizado as modificações necessárias do arquivo criado, agora basta executar o comando \texttt{bash mounting\_debian\_iso.sh} para montar a imagem \texttt{.iso}.\\
 
 Execute o comando \texttt{apt update}, este comando atualiza a lista dos repositórios, dessa forma o programa \texttt{apt} atualiza as modificações feitas nos arquivos de configuração e atualiza sua lista interna de pacotes. Após isso execute o comando o comando \texttt{apt install sudo}. \\
 
