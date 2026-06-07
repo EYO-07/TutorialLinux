@@ -669,24 +669,24 @@ Tomado estas precauções o sistema deve estar novamente habilitado para conexã
 
 \begin{lstlisting}
 # Inventário [ Serviços/Inicialização ] { Linux, systemd }
-# 1. systemctl list-units --type=service ; lista os serviços ativos carregados pelo systemd.
-# 2. systemctl list-units --type=service --all ; lista todos os serviços, incluindo inativos.
+# 1. systemctl list-units --type=service
+# ... lista os serviços ativos carregados pelo systemd.
+# 2. systemctl list-units --type=service --all 
+# ... lista todos os serviços, incluindo inativos.
 # 3. systemctl status SERVICO ; exibe status detalhado do serviço.
 # 4. systemctl start SERVICO ; inicia um serviço.
 # 5. systemctl stop SERVICO ; interrompe um serviço.
 # 6. systemctl restart SERVICO ; reinicia um serviço.
-# 7. systemctl reload SERVICO ; recarrega configuração sem reiniciar o processo.
-# 8. systemctl reload-or-restart SERVICO ; recarrega configuração ou reinicia o serviço.
-# 9. systemctl try-restart SERVICO ; reinicia apenas se o serviço estiver em execução.
-# 10. systemctl enable SERVICO ; habilita inicialização automática no boot.
-# 11. systemctl disable SERVICO ; desabilita inicialização automática no boot.
-# 12. systemctl enable --now SERVICO ; habilita e inicia imediatamente o serviço.
-# 13. systemctl disable --now SERVICO ; desabilita e interrompe imediatamente o serviço.
-# 14. systemctl is-enabled SERVICO ; verifica se o serviço inicia automaticamente.
-# 15. systemctl is-active SERVICO ; verifica se o serviço está em execução.
-# 16. systemctl show SERVICO ; mostra propriedades detalhadas do serviço.
-# 17. systemctl show -p PROPERTY SERVICO ; exibe propriedade específica do serviço.
-# 18. systemctl list-dependencies SERVICO ; lista dependências do serviço.
+# 7. systemctl enable SERVICO 
+# ... habilita inicialização automática no boot.
+# 8. systemctl disable SERVICO 
+# ... desabilita inicialização automática no boot.
+# 9. systemctl is-enabled SERVICO 
+# ... verifica se o serviço inicia automaticamente.
+# 10. systemctl is-active SERVICO 
+# ... verifica se o serviço está em execução.
+# 11. systemctl list-dependencies SERVICO 
+# ... lista dependências do serviço.
 \end{lstlisting}
 
 \vspace{\baselineskip}
@@ -822,6 +822,7 @@ Além do arquivo \texttt{/etc/apt/sources.list}, muitos aplicativos de terceiros
 \end{lstlisting}
 
 % ==============================================================================================
+\newpage
 \section{Aliases - Comandos Customizados}
 
 \hspace{\baselineskip}
@@ -966,11 +967,9 @@ Ao iniciar o X o atalho do x-session vai chamar a execução do i3. A primeira e
 
 Ao iniciar o i3 você irá notar que somente o monitor da placa mãe é reconhecido. Para que ele reconheça o monitor da placa de vídeo é interessante você instalar primeiro os drivers proprietários da sua placa de vídeo. Você terá que editar o arquivo \texttt{/etc/apt/sources.list} e habilitar as versões \texttt{non-free}, \texttt{contrib}, \texttt{non-free-firmware}. \\
 
-Coloque as palavras-chave (\texttt{non-free}, \texttt{contrib}, \texttt{non-free-firmware}) em cada linha não comentada de forma a ficar mais ou menos como abaixo:
+Coloque as palavras-chave (\texttt{non-free}, \texttt{contrib}, \texttt{non-free-firmware}) em cada linha não comentada de forma a ficar mais ou menos como abaixo:\\
 
 \begin{lstlisting}
-#...
-
 deb http://deb.debian.org/debian/ trixie main non-free-firmware contrib non-free
 deb-src http://deb.debian.org/debian/ trixie main non-free-firmware contrib non-free
 
@@ -981,8 +980,6 @@ deb-src http://security.debian.org/debian-security trixie-security main non-free
 # see https://www.debian.org/doc/manuals/debian-reference/ch02.en.html#_updates_and_backports
 deb http://deb.debian.org/debian/ trixie-updates main non-free-firmware contrib non-free
 deb-src http://deb.debian.org/debian/ trixie-updates main non-free-firmware contrib non-free
-
-#...
 \end{lstlisting}
 
 \vspace{\baselineskip}
