@@ -753,7 +753,7 @@ nmcli device status
 \section{Gerenciador de Pacotes}
 
 \begin{lstlisting}
-* Como instalar programas em linux ?
+* Como instalar e remover programas em linux ? 
 ** O que é apt, apt-get, dpkg e .deb em linux ?  
 ** Onde é configurado os repositórios do apt ? 
 ** Como acessar e editar os repositórios do apt ? 
@@ -766,7 +766,7 @@ nmcli device status
 
 \vspace{\baselineskip}
 
-Diferentes distribuições usam diferentes gerenciadores de pacotes. No debian linux, tradicionalmente se usa o \texttt{apt-get}, sendo o \texttt{apt} apenas uma interface mais amigável do \texttt{apt-get}. É possivel instalar um pacote usando diretamente um arquivo \texttt{.deb}, porém é mais comum usar o comando \texttt{apt install NOME} com o nome do pacote para que o gerenciador de pacotes busque pelo pacote em uma lista de repositórios confiáveis.\\
+Diferentes distribuições usam diferentes gerenciadores de pacotes. No debian linux, tradicionalmente se usa o \texttt{apt-get}, sendo o \texttt{apt} apenas uma interface mais amigável do \texttt{apt-get}. É possivel instalar um pacote usando diretamente um arquivo \texttt{.deb}, porém é mais comum usar o comando \texttt{apt install NOME} com o nome do pacote para que o gerenciador de pacotes busque pelo pacote em uma lista de repositórios confiáveis. Para remover um pacote basta usar os comandos \texttt{apt remove NOME} ou se quiser apagar os arquivos de configuração \texttt{apt purge NOME}. \\
 
 %\hspace{\baselineskip}
 
@@ -834,8 +834,9 @@ Apesar de muitos recursos do linux possuírem interfaces gráficas amigáveis pa
 \begin{lstlisting}
 # Inventário [ Combinação de Comandos de Terminal ] { Linux, Debian }
 # 1. COMANDO & ; Executa o comando em segundo plano (background), liberando o terminal.
-# 2. COMANDO1 && COMANDO2 ; Executa COMANDO2 apenas se COMANDO1 terminar com sucesso.
-# 3. COMANDO1 | COMANDO2 ; Pipe, envia a saída padrão de COMANDO1 para a entrada padrão de COMANDO2.
+# 2. COMANDO1 ; COMANDO2 // Executa COMANDO2 após o COMANDO1.
+# 3. COMANDO1 && COMANDO2 ; Executa COMANDO2 apenas se COMANDO1 terminar com sucesso.
+# 4. COMANDO1 | COMANDO2 ; Pipe, envia a saída padrão de COMANDO1 para a entrada padrão de COMANDO2.
 # 5. COMANDO1 || COMANDO2 ; Executa COMANDO2 apenas se COMANDO1 falhar.
 # 6. COMANDO > ARQUIVO ; Redireciona a saída padrão para um arquivo, sobrescrevendo-o.
 # 7. COMANDO >> ARQUIVO ; Adiciona a saída padrão ao final de um arquivo.
