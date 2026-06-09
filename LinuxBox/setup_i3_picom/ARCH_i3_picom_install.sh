@@ -20,13 +20,14 @@ sudo pacman -S --noconfirm --needed wireless-regdb
 sudo pacman -S --noconfirm --needed linux-firmware
 # sudo pacman -S --noconfirm --needed intel-ucode
 # sudo pacman -S --noconfirm --needed amd-ucode
-# sudo pacman -S --noconfirm --needed nvidia nvidia-utils nvidia-settings
+# sudo pacman -S --noconfirm --needed linux-headers nvidia nvidia-utils nvidia-settings
 
 # -- servidor gráfico e window manager
 # Xorg e i3 estão nos repositórios principais.
 sudo pacman -S --noconfirm --needed xorg xorg-xinit xorg-apps xorg-xrandr xorg-xrdb 
 sudo pacman -S --noconfirm --needed ttf-dejavu ttf-liberation 
 sudo pacman -S --noconfirm --needed i3-wm i3status i3lock dmenu
+sudo pacman -S --noconfirm --needed dex xss-lock network-manager-applet
 sudo pacman -S --noconfirm --needed picom
 #sudo pacman -S --noconfirm --needed lightdm lightdm-gtk-greeter # login gráfico
 #sudo systemctl enable lightdm
