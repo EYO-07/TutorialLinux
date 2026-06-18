@@ -22,7 +22,7 @@ sudo pacman -Syu
 # sudo pacman -S --noconfirm --needed mesa vulkan-intel
 # sudo pacman -S --noconfirm --needed amd-ucode
 # sudo pacman -S --noconfirm --needed mesa xf86-video-amdgpu vulkan-radeon
-# sudo pacman -S --noconfirm --needed linux-headers nvidia-open nvidia-utils nvidia-settings
+# sudo pacman -S --noconfirm --needed linux-headers nvidia-open nvidia-utils nvidia-settings 
 
 # -- servidor gráfico e window manager
 # Xorg e i3 estão nos repositórios principais.
@@ -78,8 +78,11 @@ sudo pacman -Syu
 # sudo pacman -S --noconfirm --needed gparted
 # sudo pacman -S --noconfirm --needed brightnessctl # 'xbacklight' é legado, brightnessctl é o padrão atual
 # sudo pacman -S --noconfirm --needed dunst # notificações leves para i3
-# sudo pacman -S --noconfirm --needed ufw # Firewall
 # sudo pacman -S --noconfirm --needed bleachbit # limpeza de disco
+
+# -- segurança 
+# sudo pacman -S --noconfirm --needed ufw # firewall
+# sudo pacman -S --noconfirm --needed apparmor apparmor-utils # apparmor
 
 # -- demônios 
 # sudo pacman -S --noconfirm --needed upower
