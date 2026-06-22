@@ -1,0 +1,13 @@
+# BEGIN : LinuxBox Profile
+
+notepad-- --horizontal \
+    --left \
+        ./notepad__profile \
+        /home/user/Projects/LinuxBox/readme.md \
+        /home/user/Projects/LinuxBox/common/common_aliases \
+    --right \
+        /home/user/Projects/LinuxBox/common/_linuxGrimoire.sh \
+        /home/user/Projects/LinuxBox/setup_i3_picom/setup_i3_picom_aliases \
+&
+
+# END

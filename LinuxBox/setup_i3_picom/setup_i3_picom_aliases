@@ -1,0 +1,24 @@
+# BEGIN : setup_i3_picom_aliases
+# verbose commands for linux
+# 1. verbose commands are easier to remember, less error prone
+# 2. use tab for autocompletion
+
+# -- variables PLEASE MODIFY ME
+D1='DISPLAY1'
+D2='DISPLAY2'
+
+# -- alias | system { XOrg }
+alias keyboard_layout='setxkbmap'
+alias startx_debug='startx &> ~/x11_errors.txt'
+alias thunar_debug='thunar &> ~/gtk_errors.txt'
+
+# -- alias | boot 
+alias terminate_session='killall random_background.sh ; i3-msg exit'
+alias lock='~/.config/i3/lock_screen.sh'
+
+# -- alias | screen
+alias monitors='xrandr --query | tee ~/monitors.txt'
+alias dualmonitor1='xrandr --output $D1 --primary --auto --output $D2 --auto --right-of $D1'
+alias dualmonitor2='xrandr --output $D1 --primary --auto --output $D2 --auto --left-of $D1'
+
+# END 
