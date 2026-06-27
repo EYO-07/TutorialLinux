@@ -52,6 +52,7 @@ sudo pacman -Syu
 # sudo pacman -S --noconfirm --needed 7zip # compressão e extração de arquivos
 # sudo pacman -S --noconfirm --needed unzip unrar # compressão e extração de arquivos
 # sudo pacman -S --noconfirm --needed firefox # navegador web
+# sudo pacman -S --noconfirm --needed vivaldi vivaldi-ffmpeg-codecs # vivaldi 
 # sudo pacman -S --noconfirm --needed falkon # navegador web leve 
 # sudo pacman -S --noconfirm --needed qutebrowser # navegador web leve 
 # sudo pacman -S --noconfirm --needed curl wget git # ferramentas cli de internet 
@@ -107,6 +108,9 @@ sudo pacman -Syu
 # sudo ufw default allow outgoing ; allow outgoing by default
 # sudo systemctl enable lightdm # ativa o serviço de tela de início 
 # systemctl --user enable --now pipewire-pulse # Habilitar o serviço (geralmente ativado por socket, caso necessário execute este)
+# sudo systemctl enable nvidia-suspend.service
+# sudo systemctl enable nvidia-hibernate.service
+# sudo systemctl enable nvidia-resume.service 
 # fc-cache -fv # regenera o cache de fontes 
 # sudo mkinitcpio -P # regenera o initramfs, para mudanças no kernel
 

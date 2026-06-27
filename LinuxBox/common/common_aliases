@@ -10,6 +10,7 @@ alias devices='lspci -k | tee ~/devices.txt'
 alias storage_devices='(sudo blkid && sudo fdisk -l) | tee ~/storage_devices.txt'
 alias mount_points='sudo blkid && sudo lsblk -l'
 alias update_time='timedatectl status && timedatectl set-ntp true'
+alias system_logs_cleanup='sudo journalctl --vacuum-size=100M'
 
 # -- alias | filesystem
 alias mount_iso='mount -o loop'
@@ -85,10 +86,34 @@ alias internet_connection_info='nmcli connection show'
 alias internet_delete_connection='nmcli connection delete'
 alias internet_wifi_list='nmcli radio wifi on ; nmcli device wifi list'
 alias internet_wifi_connect='nmcli device wifi connect'
+function disable_ipv6 { # ipv6 bugs old hardware
+    if [[ "$#" -ne 1 ]]; then
+        nmcli connection show
+        echo "Usage: disable_ipv6 <CONNECTION_NAME>"
+        return 1
+    fi 
+    nmcli connection down "$1"
+    nmcli connection modify "$1" ipv6.method "disabled"
+    nmcli connection up "$1"
+    nmcli connection show "$1" | grep ipv6.method
+}
+function enable_ipv6 { # ipv6 bugs old hardware
+    if [[ "$#" -ne 1 ]]; then
+        nmcli connection show
+        echo "Usage: enable_ipv6 <CONNECTION_NAME>"
+        return 1
+    fi 
+    nmcli connection down "$1"
+    nmcli connection modify "$1" ipv6.method "auto"
+    nmcli connection up "$1"
+    nmcli connection show "$1" | grep ipv6.method
+}
 
 # -- alias | tools 
 alias activate='chmod +x'
 alias deactivate='chmod -x'
+alias activate_sudo='sudo chmod +x'
+alias deactivate_sudo='sudo chmod -x'
 alias tar_extract='tar -xf'
 
 # -- alias | apps
