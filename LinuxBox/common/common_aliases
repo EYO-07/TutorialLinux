@@ -68,6 +68,7 @@ alias enable_service='sudo systemctl enable'
 # alias pacman_info='pacman -Si'
 # alias pacman_orphan='pacman -Qdt'
 # alias pacman_remove='sudo pacman -R'
+# alias pacman_clean='sudo pacman -Sc'
 # alias pacman_uninstall='sudo pacman -R'
 
 # -- alias | boot 

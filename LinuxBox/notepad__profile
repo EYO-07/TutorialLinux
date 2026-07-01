@@ -13,7 +13,6 @@ notepad-- --auto-orientation \
         ./setup_i3_picom/setup_i3_picom_aliases \
         ./setup_i3_picom/ARCH_i3_picom_install.sh \
         ./setup_i3_picom/arch_linux_fix_commands.sh \
-        ./setup_i3_picom/configs/picom/picom.sample.conf \
 &
 
 # END
