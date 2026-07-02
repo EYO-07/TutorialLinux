@@ -1,2 +1,0 @@
-#!/bin/sh
-exec PATH_TO_BIN "$@"

@@ -1,8 +1,0 @@
-# BEGIN 
-
-set show-all-if-ambiguous on
-set colored-stats on
-set print-completions-horizontally off
-set completion-display-width 0
-
-# END
