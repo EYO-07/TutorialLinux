@@ -1,0 +1,10 @@
+! BEGIN 
+
+! -- xterm 
+xterm*cursorBlink: true
+xterm*cursorColor: #FFFFFF
+xterm*selectToClipboard: true
+xterm*background: #000000
+xterm*foreground: #FFFFFF
+
+! END

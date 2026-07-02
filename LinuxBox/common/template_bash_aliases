@@ -1,0 +1,199 @@
+# BEGIN
+# verbose commands for linux
+# 1. verbose commands are easier to remember, less error prone
+# 2. use tab for autocompletion in terminal
+
+# -- variables PLEASE MODIFY ME
+D1='HDMI-1-0' # main monitor
+D2='DisplayPort-0' # secondary monitor
+
+# -- alias | system 
+# alias keyboard_layout='setxkbmap'
+alias processes='ps auxf | tee ~/processes.txt'
+alias devices='lspci -k | tee ~/devices.txt'
+alias update_time='timedatectl status && timedatectl set-ntp true'
+alias system_logs_cleanup='sudo journalctl --vacuum-size=100M'
+# alias get_window_class_name='xprop WM_CLASS'
+# alias keyboard_layout='setxkbmap'
+# alias manual_start_picom='picom --config ~/.config/picom/picom.conf -b'
+# alias get_window_class_name='xprop WM_CLASS'
+
+# -- alias | system { Debian }
+# alias regenerate_initramfs='sudo update-initramfs -u'
+
+# -- alias | system { arch-linux }
+# alias regenerate_initramfs='sudo mkinitcpio -P'
+# alias regenerate_grub_configuration_file='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+# -- alias | log errors
+alias errors='sudo dmesg -T --level=emerg,alert,crit,err,warn | tee ~/Errors/system_errors.txt'
+# alias i3_errors='i3-dump-log | grep -iE "error|warn" | tee ~/Errors/i3_errors.txt'
+# alias startx_debug='startx &> ~/Errors/x11_errors.txt'
+# alias thunar_debug='thunar &> ~/Errors/thunar_errors.txt &'
+# alias krita_debug='krita &> ~/Errors/krita_errors.txt &'
+# alias vivaldi_debug='vivaldi &> ~/Errors/vivaldi_errors.txt &'
+
+# -- alias | mount storage devices 
+alias mount_points='sudo blkid && sudo lsblk -l'
+alias storage_devices='(sudo blkid && sudo fdisk -l) | tee ~/storage_devices.txt'
+alias mount_iso_file='udisksctl loop-setup -f'
+alias unmount_usb_storage_device='udisksctl power-off -b'
+# alias mount_iso_file='mount -o loop'
+function storage_device_labels {
+    local LABEL_DIR="/dev/disk/by-label"
+    if [[ ! -d "$LABEL_DIR" ]]; then
+        echo "Error: Directory $LABEL_DIR does not exist."
+        return 1
+    fi
+    local labels
+    labels=$(ls -1 "$LABEL_DIR" 2>/dev/null)
+    if [[ -z "$labels" ]]; then
+        echo "No storage devices with labels found."
+        return 0
+    fi
+    echo "Available storage labels:"
+    echo "$labels"
+}   
+function mount_storage_device {
+    if [[ "$#" -ne 1 ]]; then
+        echo "USAGE: mount_storage_device <LABEL>"
+        storage_device_labels
+        return 1
+    fi
+    local LABEL="$1"
+    local DEVICE="/dev/disk/by-label/${LABEL}"
+    if [[ -z "$LABEL" ]]; then
+        echo "USAGE: mount_storage_device <LABEL>"
+        return 1
+    fi 
+    if [[ ! -e "$DEVICE" ]]; then
+        echo "Error: '$LABEL' not found in $DEVICE"
+        return 1
+    fi
+    if MOUNT_OUTPUT=$(udisksctl mount -b "$DEVICE" 2>&1); then
+        echo "$MOUNT_OUTPUT"
+    else
+        echo "$MOUNT_OUTPUT"
+        return 1
+    fi
+}
+
+# -- alias | filesystem
+alias create_file='touch'
+alias create_folder='mkdir -pv'
+alias list_folder_recursive='ls -R .'
+function create_from_template { 
+    if [[ "$#" -ne 2 ]]; then
+        ls ~/Templates -l
+        return 
+    fi
+    if [[ ! -f ~/Templates/"$1" ]]; then
+        echo "Error: Template '$1' not found in ~/Templates/"
+        ls ~/Templates -l
+        return 
+    fi
+    cp --interactive --verbose ~/Templates/"$1" ./"$2"
+}
+
+# -- alias | audio 
+alias audio_devices='clear ; wpctl status'
+alias set_audio_sink='wpctl set-default'
+
+# -- alias | services
+alias services='(systemctl list-units --type=service ; systemctl list-units --type=service --user)| tee ~/services.txt'
+alias check_service='sudo systemctl status'
+alias restart_service='sudo systemctl restart'
+alias enable_service='sudo systemctl enable'
+alias reload_service='sudo systemctl reload'
+
+# -- alias | package manager { apt }
+# alias manually_installed='apt-mark showmanual | tee ~/manually_installed.txt'
+
+# -- alias | package manager { arch-linux }
+# alias pacman_manually_installed='pacman -Qet | tee ~/manually_installed.txt'
+# alias pacman_aur_installed='pacman -Qm | tee ~/aur_installed.txt'
+# alias pacman_search='pacman -Ss'
+# alias pacman_install='sudo pacman -Syu --needed'
+# alias pacman_update='sudo pacman -Syu'
+# alias pacman_info='pacman -Si'
+# alias pacman_orphan='pacman -Qdt'
+# alias pacman_remove='sudo pacman -R'
+# alias pacman_clean='sudo pacman -Sc'
+# alias pacman_uninstall='sudo pacman -R'
+# alias pacman_check='sudo pacman -Sy'
+# alias yay_check='yay -Qu'
+# alias yay_install='yay -S'
+
+# -- alias | boot 
+alias restart='sudo reboot'
+alias suspend='systemctl suspend'
+alias shutdown='sudo poweroff'
+# alias terminate_session='killall random_background.sh ; i3-msg exit'
+# alias lock='~/.config/i3/lock_screen.sh'
+
+# -- alias | screen
+alias monitors='xrandr --query | tee ~/monitors.txt'
+alias dualmonitor1='xrandr --output $D1 --primary --auto --output $D2 --auto --right-of $D1'
+alias dualmonitor2='xrandr --output $D1 --primary --auto --output $D2 --auto --left-of $D1'
+
+# -- alias | internet { NetworkManager }
+alias internet_online='nmcli networking on'
+alias internet_offline='nmcli networking off'
+alias internet_status='nmcli device status'
+alias internet_device_connect='nmcli device connect'
+alias internet_device_disconnect='nmcli device disconnect'
+alias internet_kill_connection='nmcli connection down'
+alias internet_connection_info='nmcli connection show'
+alias internet_delete_connection='nmcli connection delete'
+alias internet_wifi_list='nmcli radio wifi on ; nmcli device wifi list'
+alias internet_wifi_connect='nmcli device wifi connect'
+function disable_ipv6 { # ipv6 bugs old hardware
+    if [[ "$#" -ne 1 ]]; then
+        nmcli connection show
+        echo "Usage: disable_ipv6 <CONNECTION_NAME>"
+        return 1
+    fi 
+    nmcli connection down "$1"
+    nmcli connection modify "$1" ipv6.method "disabled"
+    nmcli connection up "$1"
+    nmcli connection show "$1" | grep ipv6.method
+}
+function enable_ipv6 { # ipv6 bugs old hardware
+    if [[ "$#" -ne 1 ]]; then
+        nmcli connection show
+        echo "Usage: enable_ipv6 <CONNECTION_NAME>"
+        return 1
+    fi 
+    nmcli connection down "$1"
+    nmcli connection modify "$1" ipv6.method "auto"
+    nmcli connection up "$1"
+    nmcli connection show "$1" | grep ipv6.method
+}
+
+# -- alias | chmod
+alias activate='chmod +x'
+alias deactivate='chmod -x'
+alias activate_sudo='sudo chmod +x'
+alias deactivate_sudo='sudo chmod -x'
+
+# -- alias | tools
+alias tar_extract='tar -xf'
+
+# -- alias | apps
+
+# -- alias | apps | security 
+# alias apparmor_status='sudo aa-status | tee ~/apparmor_status.txt'
+# alias firewall_status='sudo ufw status verbose'
+# alias firewall_reset='sudo ufw reset && sudo ufw default deny incoming && sudo ufw default allow outgoing && sudo ufw enable'
+# alias firewall_status='sudo ufw status verbose'
+# alias firewall_disable='sudo ufw disable'
+# alias firewall_enable='sudo ufw enable'
+
+# -- alias | self
+alias shortcuts='cat ~/.bash_aliases | grep -iE "alias "'
+alias show_aliases='cat ~/.bash_aliases | grep -iE "alias "'
+alias update_aliases='. ~/.bash_aliases'
+alias edit_aliases='nano ~/.bash_aliases'
+alias check_aliases='bash -n ~/.bash_aliases'
+
+# END 
