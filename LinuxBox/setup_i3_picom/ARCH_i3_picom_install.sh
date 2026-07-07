@@ -81,6 +81,7 @@ sudo pacman -Syu
 # sudo pacman -S --noconfirm --needed dunst # notificações leves para i3
 # sudo pacman -S --noconfirm --needed bleachbit # limpeza de disco
 # sudo pacman -S --noconfirm --needed fbset # framebuffer settings utility 
+# sudo pacman -S --noconfirm --needed avahi nss-mdns # avahi daemon for local ip discovery
 
 # -- segurança 
 # sudo pacman -S --noconfirm --needed ufw # firewall

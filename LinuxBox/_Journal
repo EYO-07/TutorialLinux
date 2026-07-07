@@ -114,7 +114,7 @@ wintypes: {
 
 '2026-07-01_22'
 ? Como criar espaços não-alocados em discos com bitlocker no windows 
-! Update no Github - ... 
+! Update no Github - [ok]
 !! Verificar os common_aliases - [ok]
 !! Verificar o picom.conf - [ok]
 !! Verificar o config do i3 - [ok]
